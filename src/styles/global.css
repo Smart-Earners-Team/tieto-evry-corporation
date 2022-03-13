@@ -1,0 +1,34 @@
+/* ./src/styles/global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The font for games */
+@import url('https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  body {
+    @apply font-sans h-screen text-gray-900 text-lg lg:text-xl;
+  }
+
+  h1 {
+    @apply text-4xl md:text-6xl mb-7 md:mb-8;
+  }
+
+  h2 {
+    @apply text-3xl md:text-5xl mb-6 md:mb-7;
+  }
+
+  h3 {
+    @apply text-2xl md:text-4xl mb-4 md:mb-6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans font-medium leading-tight;
+  }
+}
