@@ -13,12 +13,18 @@ import { IoMdClose } from "react-icons/io";
 import FabIcon from "../../components/Icons/FabIcon";
 import GameButton from "../../components/Buttons/GameButton";
 import { StaticImage } from "gatsby-plugin-image";
-import { MdOutlineHelp } from "react-icons/md";
+import { MdOutlineHelp, MdPlayArrow } from "react-icons/md";
 import { GiSpeaker, GiSpeakerOff } from "react-icons/gi";
+import LamboDriverVideo from "../../components/Tools/LamboDriverVideo";
 
 interface ChiefDriverWaveRef {
   letChiefWave: () => void;
   thanksChief: () => void;
+}
+
+export interface LamboDriverVideoRef {
+  startEngine: () => Promise<void>;
+  toggleMute: () => Promise<void>;
 }
 
 export default function LamboGamePage() {
@@ -28,15 +34,25 @@ export default function LamboGamePage() {
     thanksChief: () => {},
   });
 
+  const videoRef = useRef<LamboDriverVideoRef>({
+    startEngine: async () => {},
+    toggleMute: async () => {},
+  });
+
   return (
     <Layout>
       <GamesNav shortName="LD" />
       <Section className="pt-5 !px-0 lg:!px-16 m-0 max-w-screen-xl flex justify-between items-start">
-          <ChiefDriverWave ref={ref} />
-        
+        <ChiefDriverWave ref={ref} />
         <div className="w-full lg:w-2/3 lg:inline-block lg:float-right lg:max-w-2xl">
-          <div className="w-full h-72 bg-gray-400 animate-pulse" />
+          <LamboDriverVideo ref={videoRef} />
           <div className="bg-white shadow-md p-2 flex items-center justify-end w-full">
+            <FabIcon
+              onClick={videoRef.current.startEngine}
+              className="lg:hidden"
+            >
+              <MdPlayArrow className="w-8 h-8 text-slate-500" />
+            </FabIcon>
             <FabIcon onClick={ref.current.letChiefWave} className="lg:hidden">
               <MdOutlineHelp className="w-8 h-8 text-slate-500" />
             </FabIcon>
@@ -78,7 +94,6 @@ export default function LamboGamePage() {
                 Sell income to LAMBO
               </GameButton>
             </div>
-            
           </div>
         </div>
       </Section>
@@ -94,7 +109,9 @@ interface MetricChipProps {
 }
 const MetricChip = ({ text, value, className }: MetricChipProps) => {
   return (
-    <div className={cls("font-extrabold text-gray-600 py-2 text-xl", className)}>
+    <div
+      className={cls("font-extrabold text-gray-600 py-2 text-xl", className)}
+    >
       {text}
       <div className="font-bold mt-0">{value}</div>
     </div>
@@ -124,19 +141,7 @@ const ChiefDriverWave = forwardRef<ChiefDriverWaveRef>((_props, ref) => {
 
   // pass the ref to the parent component
   // So the component can call the child methods
-  const chiefRef = useRef<ChiefDriverWaveRef>({ letChiefWave, thanksChief });
-  useImperativeHandle(
-    ref,
-    () => ({
-      letChiefWave: () => {
-        chiefRef.current.letChiefWave();
-      },
-      thanksChief: () => {
-        chiefRef.current.thanksChief();
-      },
-    }),
-    []
-  );
+  useImperativeHandle(ref, () => ({ letChiefWave, thanksChief }), []);
 
   const waveClass = "visible";
   const byeClass = "invisible w-[0px]";

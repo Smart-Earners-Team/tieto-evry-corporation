@@ -19,3 +19,8 @@ interface Window {
     ) => Promise<{ publicKey: string; signature: string }>;
   };
 }
+
+declare module '*.webm' {
+  const value: any;
+  export = value;
+}
