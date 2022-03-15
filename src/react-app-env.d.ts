@@ -20,7 +20,32 @@ interface Window {
   };
 }
 
-declare module '*.webm' {
+declare module "*.webm" {
+  const value: any;
+  export = value;
+}
+
+declare module "*.3gp" {
+  const value: any;
+  export = value;
+}
+
+declare module "*.avi" {
+  const value: any;
+  export = value;
+}
+
+declare module "*.flv" {
+  const value: any;
+  export = value;
+}
+
+declare module "*.mov" {
+  const value: any;
+  export = value;
+}
+
+declare module "*.ogg" {
   const value: any;
   export = value;
 }

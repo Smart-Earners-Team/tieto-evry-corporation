@@ -1,10 +1,4 @@
-import React, {
-  forwardRef,
-  useCallback,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useState } from "react";
 import GamesNav from "../../components/GamesNav";
 import Layout from "../../components/Layouts";
 import Section from "../../components/Layouts/Section";
@@ -13,56 +7,21 @@ import { IoMdClose } from "react-icons/io";
 import FabIcon from "../../components/Icons/FabIcon";
 import GameButton from "../../components/Buttons/GameButton";
 import { StaticImage } from "gatsby-plugin-image";
-import { MdOutlineHelp, MdPlayArrow } from "react-icons/md";
-import { GiSpeaker, GiSpeakerOff } from "react-icons/gi";
 import LamboDriverVideo from "../../components/Tools/LamboDriverVideo";
 
-interface ChiefDriverWaveRef {
-  letChiefWave: () => void;
-  thanksChief: () => void;
-}
-
-export interface LamboDriverVideoRef {
-  startEngine: () => Promise<void>;
-  toggleMute: () => Promise<void>;
-}
-
 export default function LamboGamePage() {
-  // call and close the chief driver
-  const ref = useRef<ChiefDriverWaveRef>({
-    letChiefWave: () => {},
-    thanksChief: () => {},
-  });
+  const [wave, setWave] = useState(false);
 
-  const videoRef = useRef<LamboDriverVideoRef>({
-    startEngine: async () => {},
-    toggleMute: async () => {},
-  });
+  const letChiefWave = useCallback(() => setWave(true), []);
+  const thanksChief = useCallback(() => setWave(false), []);
 
   return (
     <Layout>
       <GamesNav shortName="LD" />
       <Section className="pt-5 !px-0 lg:!px-16 m-0 max-w-screen-xl flex justify-between items-start">
-        <ChiefDriverWave ref={ref} />
+        <ChiefDriverWave visible={wave} closeHandler={thanksChief} />
         <div className="w-full lg:w-2/3 lg:inline-block lg:float-right lg:max-w-2xl">
-          <LamboDriverVideo ref={videoRef} />
-          <div className="bg-white shadow-md p-2 flex items-center justify-end w-full">
-            <FabIcon
-              onClick={videoRef.current.startEngine}
-              className="lg:hidden"
-            >
-              <MdPlayArrow className="w-8 h-8 text-slate-500" />
-            </FabIcon>
-            <FabIcon onClick={ref.current.letChiefWave} className="lg:hidden">
-              <MdOutlineHelp className="w-8 h-8 text-slate-500" />
-            </FabIcon>
-            <FabIcon>
-              <GiSpeaker className="w-8 h-8 text-slate-500" />
-            </FabIcon>
-            <FabIcon>
-              <GiSpeakerOff className="w-8 h-8 text-slate-500" />
-            </FabIcon>
-          </div>
+          <LamboDriverVideo letChiefWave={letChiefWave} />
           <div className="flex flex-col relative w-full">
             <div className="flex justify-between items-center px-5 space-x-3">
               <MetricChip text="Number of Drivers" value="0.00" />
@@ -133,16 +92,11 @@ const TextInput = () => {
   );
 };
 
-const ChiefDriverWave = forwardRef<ChiefDriverWaveRef>((_props, ref) => {
-  const [wave, setWave] = useState(false);
-
-  const letChiefWave = useCallback(() => setWave(true), []);
-  const thanksChief = useCallback(() => setWave(false), []);
-
-  // pass the ref to the parent component
-  // So the component can call the child methods
-  useImperativeHandle(ref, () => ({ letChiefWave, thanksChief }), []);
-
+interface ChiefDriverProps {
+  visible: boolean;
+  closeHandler: () => void;
+}
+const ChiefDriverWave = ({ visible, closeHandler }: ChiefDriverProps) => {
   const waveClass = "visible";
   const byeClass = "invisible w-[0px]";
 
@@ -153,16 +107,16 @@ const ChiefDriverWave = forwardRef<ChiefDriverWaveRef>((_props, ref) => {
           "fixed max-w-2xl mx-auto inset-3 bg-white z-50 transition-all duration-75 shadow-lg rounded-md",
           "border lg:static lg:z-auto lg:visible lg:mx-0 lg:shadow-md lg:w-1/3 lg:inline-block overflow-y-auto",
           {
-            [waveClass]: wave,
-            [byeClass]: !wave,
+            [waveClass]: visible,
+            [byeClass]: !visible,
           }
         )}
       >
-        <div className={cls("p-6 lg:block", { ["hidden"]: !wave })}>
+        <div className={cls("p-6 lg:block", { ["hidden"]: !visible })}>
           <div className="flex justify-between items-center">
             <h1 className="text-slate-800 lg:text-3xl">How to get started?</h1>
             <FabIcon
-              onClick={thanksChief}
+              onClick={closeHandler}
               className="!text-yellow-700 cursor-pointer shrink-0 lg:hidden"
             >
               <IoMdClose className="w-8 h-8" />
@@ -205,12 +159,12 @@ const ChiefDriverWave = forwardRef<ChiefDriverWaveRef>((_props, ref) => {
         className={cls(
           "fixed inset-0 bg-dark bg-opacity-10 cursor-pointer z-40",
           {
-            hidden: !wave,
-            block: wave,
+            hidden: !visible,
+            block: visible,
           }
         )}
-        onClick={thanksChief}
+        onClick={closeHandler}
       />
     </React.Fragment>
   );
-});
+};

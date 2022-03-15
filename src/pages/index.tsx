@@ -129,7 +129,7 @@ const IndexPage = () => {
             md:items-stretch"
           >
             {featureSummary.map((summary) => (
-              <Link to={summary.link} className="inline-block">
+              <Link key={summary.link} to={summary.link} className="inline-block">
                 <FeatureSummaryCard
                   key={summary.heading}
                   icon={summary.icon}
