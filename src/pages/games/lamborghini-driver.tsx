@@ -120,6 +120,9 @@ export default function LamboGamePage({ path }: PageProps) {
   }, [library, amountToPay, refAddress, inputHasError]);
 
   const canStart = useCallback(() => drivers > 0, [drivers]);
+  const shareUrl = `https://tteb.finance${
+    path + (account ? "?ref=" + account : "")
+  }`;
   return (
     <Layout>
       <RefreshContextProvider>
@@ -129,7 +132,7 @@ export default function LamboGamePage({ path }: PageProps) {
           <div className="w-full lg:w-2/3 lg:inline-block lg:float-right lg:max-w-2xl">
             <LamboDriverVideo
               letChiefWave={letChiefWave}
-              shareLink={`https://tteb.finance${path}?ref=${account}`}
+              shareLink={shareUrl}
               canStartEngine={canStart}
             />
             <div className="flex flex-col relative w-full">
