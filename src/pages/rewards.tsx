@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Heading } from "../components/Typography/Headings";
 import Layout from "../components/Layouts";
 import SEO from "../components/SEO";
@@ -66,15 +66,13 @@ const PageContent = () => {
   const { fast, slow } = useContext(RefreshContext);
   // pull uer data async
 
-  const pullUnpaidEarningsAsync = async () => {
-    if (!library || !active || !account) {
-      setTTebRewards("0");
-    } else {
+  const pullUnpaidEarningsAsync = useCallback(async () => {
+    if (library && active && account) {
       const earnings = await getUnpaidEarnings(account, library.getSigner());
       setTTebRewards(earnings);
+      setRewardsLoaded(true);
     }
-    setRewardsLoaded(true);
-  };
+  }, [library, active, account]);
 
   const claimReward = async () => {
     if (!library || !active || !account) return;
