@@ -11,11 +11,9 @@ import { StaticImage } from "gatsby-plugin-image";
 import {
   claimDividend,
   fetchTokenPrices,
-  getTokenBalance,
   getUnpaidEarnings,
 } from "../utils/calls";
 import useActiveWeb3React from "../hooks/useActiveWeb3React";
-import { getLamboContract, getTtebContract } from "../utils/contractHelpers";
 import useToast from "../hooks/useToast";
 import { lpTokenPairs, tokens } from "../config";
 import { BIG_ONE, BIG_ZERO } from "../utils/bigNumber";
@@ -49,8 +47,6 @@ export default function ContactPage() {
 }
 
 const PageContent = () => {
-  const [ttebBalance, setTtebBalance] = useState<string>("0.000");
-  const [lamboBalance, setLamboBalance] = useState<string>("0.000");
   const [ttebRewards, setTTebRewards] = useState<string>("0.000");
   const [rewardsLoaded, setRewardsLoaded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -63,39 +59,25 @@ const PageContent = () => {
   });
 
   const {
-    ttebWallet: { balance, active, error },
+    ttebWallet: { active, error, balance: ttebBalance, lamboBalance },
   } = useAppContext();
   const { library, account } = useActiveWeb3React();
   const { toastError, toastSuccess } = useToast();
   const { fast, slow } = useContext(RefreshContext);
   // pull uer data async
 
-  const pullTokensBalanceAsync = async () => {
-    if (!library || !active || !account) return;
-
-    const tteb = await getTokenBalance(
-      getTtebContract(library.getSigner()),
-      account,
-      9
-    );
-    const lambo = await getTokenBalance(
-      getLamboContract(library.getSigner()),
-      account,
-      18
-    );
-    setTtebBalance(tteb);
-    setLamboBalance(lambo);
-  };
-
   const pullUnpaidEarningsAsync = async () => {
-    if (!library || !active || !account) return "0";
-    const earnings = await getUnpaidEarnings(account, library.getSigner());
-    setTTebRewards(earnings);
+    if (!library || !active || !account) {
+      setTTebRewards("0");
+    } else {
+      const earnings = await getUnpaidEarnings(account, library.getSigner());
+      setTTebRewards(earnings);
+    }
     setRewardsLoaded(true);
   };
 
   const claimReward = async () => {
-    if (!library || !active || !account) return "0";
+    if (!library || !active || !account) return;
     setLoading(true);
     try {
       await claimDividend(library.getSigner());
@@ -151,8 +133,6 @@ const PageContent = () => {
     fetchPrices();
   }, [fast, slow]);
 
-  pullTokensBalanceAsync();
-
   pullUnpaidEarningsAsync();
 
   const bnbValue = new BigNumber(tokenPrices.bnb).toFixed(3);
@@ -185,8 +165,10 @@ const PageContent = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex flex-col items-center sm:flex-row sm:justify-center flex-wrap
-        mb-5 gap-2 bg-gray-50/50 py-5">
+      <div
+        className="w-full flex flex-col items-center sm:flex-row sm:justify-center flex-wrap
+        mb-5 gap-2 bg-gray-50/50 py-5"
+      >
         <TokenBalanceCard
           symbol="TTEB"
           tokenBalance={ttebBalance}

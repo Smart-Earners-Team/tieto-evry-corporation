@@ -6,8 +6,9 @@ import cls from "classnames";
 
 interface GamesNavProps {
   shortName: string;
+  tokenBalance: string;
 }
-export default function GamesNav({ shortName }: GamesNavProps) {
+export default function GamesNav({ shortName, tokenBalance }: GamesNavProps) {
   const {
     ttebWallet: { active, error, retry, isConnecting },
   } = useAppContext();
@@ -25,7 +26,7 @@ export default function GamesNav({ shortName }: GamesNavProps) {
       <div className="font-sansita">{shortName}</div>
       <div className="space-x-4 text-base">
         <div className="inline-block text-primary-500 font-medium text-lg">
-          $0.000
+          {tokenBalance} <b>LAMBO</b>
         </div>
         <div className="inline-block">
           {!active && !error && (

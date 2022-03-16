@@ -12,8 +12,8 @@ export default function GameButton({
   return (
     <button
       className={cls(
-        "p-2 m-1 shadow-lg hover:shadow-xl rounded-lg",
-        "bg-amber-600 hover:bg-amber-500 text-white disabled:cursor-not-allowed disabled:opacity-80",
+        "p-2 m-1 shadow-lg hover:shadow-xl rounded-lg disabled:shadow-none",
+        "bg-amber-600 hover:bg-amber-500 text-white disabled:cursor-not-allowed disabled:opacity-40",
         className
       )}
       {...props}

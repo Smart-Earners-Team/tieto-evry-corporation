@@ -19,5 +19,11 @@ export const getLamboAddress = () => {
 };
 
 export const getMulticallAddress = () => {
-  return getAddress(addresses.multiCall)
-}
+  return getAddress(addresses.multiCall);
+};
+
+export const getLamboDriverAddress = () =>
+  getAddress(addresses.lamboDriverGame);
+
+// Used only on testnet
+export const getAspAddress = () => getAddress(addresses.asp);

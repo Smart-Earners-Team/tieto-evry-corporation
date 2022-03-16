@@ -122,21 +122,21 @@ export default function EcosystemPage() {
         </p>
         <p>
           LAMBO has a 15% tax split as follows: <br />
-          <ul className="list-inside list-disc">
-            <li>
-              <b>9% Liquidity</b>
-            </li>
-            <li>
-              <b>3% Marketing</b>
-            </li>
-            <li>
-              <b>
-                3% TTEB buybacks which are automatically distributed to all
-                LAMBO token holders
-              </b>
-            </li>
-          </ul>
         </p>
+        <ul className="list-inside list-disc">
+          <li>
+            <b>9% Liquidity</b>
+          </li>
+          <li>
+            <b>3% Marketing</b>
+          </li>
+          <li>
+            <b>
+              3% TTEB buybacks which are automatically distributed to all LAMBO
+              token holders
+            </b>
+          </li>
+        </ul>
         <div className="w-full">
           <Link
             to="https://pancakeswap.finance/swap?outputCurrency=0x1A82C2A3fD8BE1793ed8648F2df6B2B415EA81f8"
@@ -146,7 +146,7 @@ export default function EcosystemPage() {
             <SolidButton label="Buy on Pankcake Swap" />
           </Link>
           <Link to="/defi-games" className="inline-block my-3 md:my-6">
-            <SolidButton label="PLAY NOW" variant="secondary" />
+            <SolidButton label="PLAY NOW" />
           </Link>
           <CopyToClipboard
             title="Contract Address"

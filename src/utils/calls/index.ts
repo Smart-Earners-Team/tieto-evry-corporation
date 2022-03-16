@@ -12,10 +12,9 @@ import { getAddress } from "../addressHelpers";
 import multicall from "./multicall";
 import erc20 from "../../config/abi/erc20.json";
 import { BIG_TEN } from "../bigNumber";
+import type { CallSignerType } from "../../types";
 
-export const claimDividend = async (
-  signer: ethers.Signer | ethers.providers.Provider
-) => {
+export const claimDividend = async (signer: CallSignerType) => {
   const contract = getLamboContract(signer);
   const gasPrice = getGasPrice();
   const tx = await contract.claimDividend({ gasPrice });
@@ -30,7 +29,11 @@ export const getTokenBalance = async (
 ) => {
   try {
     const { _hex } = (await contract.balanceOf(account)) as ethers.BigNumber;
-    const balance = getFullDisplayBalance(new BigNumber(_hex), decimals, 3);
+    const balance = getFullDisplayBalance(
+      new BigNumber(_hex),
+      decimals,
+      decimals
+    );
     return balance;
   } catch (e) {
     return "0.000";
@@ -39,7 +42,7 @@ export const getTokenBalance = async (
 
 export const getUnpaidEarnings = async (
   account: string,
-  signer: ethers.Signer | ethers.providers.Provider
+  signer: CallSignerType
 ) => {
   const contract = getTtebDistributorContract(signer);
 
@@ -54,10 +57,9 @@ export const getUnpaidEarnings = async (
   }
 };
 
-
 export const fetchTokenPrices = async (pairs: LpTokenPair) => {
   const { lpAddresses, token, quoteToken } = pairs;
-  
+
   // bnb-busd e.g
   const lpAddress = getAddress(lpAddresses);
   const tokenAddress = getAddress(token);
@@ -94,7 +96,7 @@ export const fetchTokenPrices = async (pairs: LpTokenPair) => {
     tokenDecimals,
     quoteTokenDecimals,
   ] = await multicall(erc20, Erc20calls);
-  
+
   // Raw amount of token in the LP, including those not staked
   const tokenAmountTotal = new BigNumber(tokenBalanceLP).div(
     BIG_TEN.pow(tokenDecimals)

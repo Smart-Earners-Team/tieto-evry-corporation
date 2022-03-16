@@ -14,7 +14,7 @@ export default function LandingPageHeader({
   header,
 }: LandingPageHeaderProps) {
   return (
-    <Section containerClass="bg-gray-50" className="pt-10 pb-0">
+    <Section containerClass="bg-gray-50" className="!pt-0 pb-0">
       <PrimaryMenu />
       <div
         className="min-h-screen md:min-h-0 md:h-screen md:max-h-[700px] mx-auto pt-16 flex flex-col

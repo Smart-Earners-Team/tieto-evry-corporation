@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   disableBodyScroll,
   clearAllBodyScrollLocks,
@@ -11,15 +11,12 @@ import { navigationItems } from "../globals/navigation";
 import Link from "./Link";
 import Logo from "./Logo";
 
-interface MobileMenuProps extends React.ComponentProps<"div"> {}
-
-export default function PrimaryMenu({ className }: MobileMenuProps) {
+export default function PrimaryMenu() {
   const [open, setOpen] = useState(false);
   const mobileNavELement = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!mobileNavELement.current) return;
-
     if (open) {
       disableBodyScroll(mobileNavELement.current);
     } else {
@@ -30,57 +27,57 @@ export default function PrimaryMenu({ className }: MobileMenuProps) {
     };
   }, [open]);
 
-  const toggleMenu = () => setOpen((prev) => !prev);
+  const openMenu = useCallback(() => setOpen(true), []);
+  const closeMenu = useCallback(() => setOpen(false), []);
 
   return (
-    <div className="w-full">
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between pb-5">
-        <div className="flex flex-row items-center justify-between">
-          <Link
-            to="/"
-            className="text-lg font-semibold tracking-widest uppercase
+    <div className="flex w-full flex-col lg:flex-row lg:items-center lg:justify-between py-5">
+      <div className="flex flex-row items-center justify-between">
+        <Link
+          to="/"
+          className="text-lg font-semibold tracking-widest uppercase
                 rounded-lg focus:outline-none focus:shadow-outline"
-          >
-            <Logo />
-          </Link>
-          <FabIcon
-            label="Menu"
-            onClick={toggleMenu}
-            arial-label="Menu"
-            className="lg:hidden cursor-pointer"
-          >
-            <RiBarChartHorizontalLine className="h-6 w-6" />
-          </FabIcon>
-        </div>
-        <nav
+        >
+          <Logo />
+        </Link>
+        <FabIcon
+          label="Menu"
+          onClick={openMenu}
+          arial-label="Menu"
+          className="lg:hidden cursor-pointer"
+        >
+          <RiBarChartHorizontalLine className="h-6 w-6" />
+        </FabIcon>
+      </div>
+      <nav
         ref={mobileNavELement}
-          className={`fixed lg:relative w-full h-full inset-0 bg-gray-50 lg:bg-transparent overflow-hidden
+        className={`fixed lg:relative w-full h-full inset-0 bg-gray-50 lg:bg-transparent overflow-hidden
           text-gray-800 capitalize z-50 lg:z-auto flex justify-center flex-col items-center ${
             open ? "flex ite" : "hidden lg:flex"
           }`}
+      >
+        <FabIcon
+          onClick={closeMenu}
+          label="close"
+          className="block mx-auto mb-10 lg:hidden cursor-pointer"
         >
-          <FabIcon
-            onClick={toggleMenu}
-            label="close"
-            className="block mx-auto mb-10 lg:hidden cursor-pointer"
-          >
-            <FaTimes className="h-5 w-5 text-red-600" />
-          </FabIcon>
-          <ul className="flex flex-col lg:flex-row lg:justify-end lg:items-center">
-            {navigationItems.map((nav) => (
-              <li key={nav.id}>
-                <Link
-                  to={nav.href}
-                  className="block text-center p-1 mb-8 lg:mb-0 hover:underline transition-colors ease-linear text-2xl
-                    lg:text-lg font-semibold lg:ml-3"
-                >
-                  {nav.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+          <FaTimes className="h-5 w-5 text-red-600" />
+        </FabIcon>
+        <ul className="flex flex-col lg:flex-row lg:justify-end lg:items-center">
+          {navigationItems.map((nav) => (
+            <li key={nav.id}>
+              <Link
+                to={nav.href}
+                className="block text-center p-1 mb-8 lg:mb-0 hover:underline transition-colors ease-linear text-2xl
+                  lg:text-lg font-semibold lg:ml-3"
+                onClick={closeMenu}
+              >
+                {nav.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 }

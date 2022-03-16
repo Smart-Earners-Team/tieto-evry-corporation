@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import type { PageProps as GatsbyPageProps } from "gatsby";
 
 export interface ButtonProps
@@ -17,3 +18,5 @@ export interface TokensBalance {
   name: "tteb" | "lambo";
   address: string;
 }
+
+export type CallSignerType = ethers.Signer | ethers.providers.Provider;

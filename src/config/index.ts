@@ -41,6 +41,15 @@ export const addresses = {
     56: "0xfF6FD90A470Aaa0c1B8A54681746b07AcdFedc9B",
     97: "",
   },
+  lamboDriverGame: {
+    97: "0x8c1b307bb68e51bbea11268f79080346aeceafd3",
+    56: "",
+  },
+  // only for testnet
+  asp: {
+    97: "0xd1E177d9ADE89434c43f09489Dcf7F0475599DD3",
+    56: "",
+  },
 };
 
 export const lpTokenPairs: LpTokenPair[] = [

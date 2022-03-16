@@ -1,24 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player/lazy";
 import cls from "classnames";
-import { GiSpeaker, GiSpeakerOff } from "react-icons/gi";
+import { GiShare, GiSpeaker, GiSpeakerOff } from "react-icons/gi";
 import { MdPlayArrow, MdOutlineHelp } from "react-icons/md";
 import FabIcon from "../Icons/FabIcon";
-/* 
-// first videos lbd{i} = lambo Driver {number}
-import vWebm1 from "../../media/games/lamborghini-driver/lambo-driver-1.webm";
-import v3gp1 from "../../media/games/lamborghini-driver/lambo-driver-1.3gp";
-import vAvi1 from "../../media/games/lamborghini-driver/lambo-driver-1.avi";
-import vFlv1 from "../../media/games/lamborghini-driver/lambo-driver-1.flv";
-import vMov1 from "../../media/games/lamborghini-driver/lambo-driver-1.mov";
-import vOgg1 from "../../media/games/lamborghini-driver/lambo-driver-1.ogg";
-// Second videos
-import vWebm2 from "../../media/games/lamborghini-driver/lambo-driver-2.webm";
-import v3gp2 from "../../media/games/lamborghini-driver/lambo-driver-2.3gp";
-import vAvi2 from "../../media/games/lamborghini-driver/lambo-driver-2.avi";
-import vFlv2 from "../../media/games/lamborghini-driver/lambo-driver-2.flv";
-import vMov2 from "../../media/games/lamborghini-driver/lambo-driver-2.mov";
-import vOgg2 from "../../media/games/lamborghini-driver/lambo-driver-2.ogg"; */
+import useToast from "../../hooks/useToast";
+import { useCopyText } from "../../hooks";
 
 type VideoCountKeys = "first" | "second";
 type SupportedVideo = {
@@ -30,6 +17,8 @@ type SupportedVideo = {
 type StatePlayerRef = React.MutableRefObject<ReactPlayer>["current"];
 interface LamboDriverVideoProps {
   letChiefWave: () => void;
+  shareLink: string;
+  canStartEngine: () => boolean;
 }
 
 const prefix =
@@ -53,7 +42,11 @@ const supportedVideoMaps: SupportedVideo = {
     { src: prefix + "lambo-driver-2.ogg?raw=true", type: "video/ogg" },
   ],
 };
-function LamboDriverVideo({ letChiefWave }: LamboDriverVideoProps) {
+function LamboDriverVideo({
+  letChiefWave,
+  shareLink,
+  canStartEngine,
+}: LamboDriverVideoProps) {
   // state to track if the first video has finished playing
   const [firstCompleted, setfirstCompleted] = useState(false);
   const [currentPlayer, setCurrentPlayer] = useState<StatePlayerRef | null>(
@@ -65,6 +58,9 @@ function LamboDriverVideo({ letChiefWave }: LamboDriverVideoProps) {
   const firstVideoRef = useRef<ReactPlayer | null>(null);
   const secondVideoRef = useRef<ReactPlayer | null>(null);
 
+  const { toastSuccess, toastError } = useToast();
+  const copyText = useCopyText(shareLink);
+
   useEffect(() => {
     if (firstVideoRef.current && secondVideoRef.current && !firstCompleted) {
       setCurrentPlayer(firstVideoRef.current);
@@ -73,7 +69,8 @@ function LamboDriverVideo({ letChiefWave }: LamboDriverVideoProps) {
   }, [firstVideoRef, secondVideoRef]);
 
   const startEngine = async (player: ReactPlayer) => {
-    getPlayer(player).play();
+    const canStart = canStartEngine();
+    if (canStart) getPlayer(player).play();
   };
 
   const toggleMute = () => setMuted((p) => !p);
@@ -91,56 +88,67 @@ function LamboDriverVideo({ letChiefWave }: LamboDriverVideoProps) {
       setOtherPlayer(null);
       getPlayer(currentPlayer).parentElement?.classList.add("hidden");
       getPlayer(otherPlayer).parentElement?.classList.remove("hidden");
+      getPlayer(otherPlayer).loop = true;
       startEngine(otherPlayer);
     }
   };
 
+  const handleShare = async () => {
+    const copied = await copyText();
+    if (copied) {
+      toastSuccess("Link Copied to Clipboard", shareLink);
+    } else {
+      toastError("Operation Failed", "Could not copy text to clipboard");
+    }
+  };
+
+  const checkCanStart = () => {
+    const canStart = canStartEngine();
+    if (!canStart && currentPlayer) getPlayer(currentPlayer).pause();
+  };
   return (
     /*Responsive player 
     Set width and height to 100% and wrap the player in a fixed aspect ratio box to get a
     responsive player: see https://css-tricks.com/aspect-ratio-boxes */
     <React.Fragment>
-      <div className="w-full bg-white relative">
+      <div className="w-full bg-gray-100 relative pointer-events-none">
         <ReactPlayer
           url={supportedVideoMaps["first"]}
-          className={cls({ ["hidden"]: firstCompleted })}
+          className={cls("pointer-event-none", { ["hidden"]: firstCompleted })}
           width="100%"
           height="100%"
           onEnded={handleFirstPlayerEnded}
           ref={(player) => (firstVideoRef.current = player)}
           pip={false}
           muted={muted}
+          onPlay={checkCanStart}
         />
         <ReactPlayer
           url={supportedVideoMaps["second"]}
-          className={cls({ ["hidden"]: firstCompleted === false })}
+          className={cls("pointer-event-none", { ["hidden"]: firstCompleted === false })}
           width="100%"
           height="100%"
           ref={(player2) => (secondVideoRef.current = player2)}
           pip={false}
           loop
           muted={muted}
+          onPlay={checkCanStart}
         />
       </div>
       <div className="bg-white shadow-md p-2 flex items-center justify-end w-full">
-        <FabIcon
-          onClick={() => {
-            if (currentPlayer) startEngine(currentPlayer);
-          }}
-          className="lg:hidden"
-        >
-          <MdPlayArrow className="w-8 h-8 text-slate-500" />
+        <FabIcon onClick={handleShare} title="Share">
+          <GiShare className="text-slate-500" />
         </FabIcon>
         <FabIcon onClick={letChiefWave} className="lg:hidden">
-          <MdOutlineHelp className="w-8 h-8 text-slate-500" />
+          <MdOutlineHelp className="text-slate-500" />
         </FabIcon>
         {!muted ? (
           <FabIcon onClick={toggleMute}>
-            <GiSpeaker className="w-8 h-8 text-slate-500" />
+            <GiSpeaker className="text-slate-500" />
           </FabIcon>
         ) : (
           <FabIcon onClick={toggleMute}>
-            <GiSpeakerOff className="w-8 h-8 text-slate-500" />
+            <GiSpeakerOff className="text-slate-500" />
           </FabIcon>
         )}
       </div>
