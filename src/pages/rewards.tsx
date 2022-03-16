@@ -74,20 +74,21 @@ const PageContent = () => {
     }
   }, [library, active, account]);
 
-  const claimReward = async () => {
-    if (!library || !active || !account) return;
-    setLoading(true);
-    try {
-      await claimDividend(library.getSigner());
-      toastSuccess("Success", "Your rewards has been added to your account");
-    } catch (error) {
-      toastError(
-        "Failed",
-        "Please try again. Confirm the transaction and make sure you are paying enough gas!"
-      );
+  const claimReward = useCallback(async () => {
+    if (library && active && account) {
+      setLoading(true);
+      try {
+        await claimDividend(library.getSigner());
+        toastSuccess("Success", "Your rewards has been added to your account");
+      } catch (error) {
+        toastError(
+          "Failed",
+          "Please try again. Confirm the transaction and make sure you are paying enough gas!"
+        );
+      }
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }, [library, active, account]);
 
   const fetchPrices = async () => {
     let bnbPriceBusd = BIG_ZERO,
