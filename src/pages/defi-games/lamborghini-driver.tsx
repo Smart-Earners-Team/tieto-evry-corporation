@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import GamesNav from "../../components/GamesNav";
 import Layout from "../../components/Layouts";
 import Section from "../../components/Layouts/Section";
@@ -22,7 +22,7 @@ import { useAppContext } from "../../hooks/useAppContext";
 import BigNumber from "bignumber.js";
 import { PageProps } from "gatsby";
 import { checkTokenAllowance } from "../../utils/calls";
-import { isMainNet } from "../../utils";
+import { getGameShareLink, isMainNet } from "../../utils";
 import {
   getAspAddress,
   getLamboAddress,
@@ -206,9 +206,16 @@ export default function LamboGamePage({ path }: PageProps) {
     () => isApproved && drivers > 0,
     [drivers, isApproved, account, active, library]
   );
-  const shareUrl = `https://tteb.finance${
-    path + (account ? "?ref=" + account : "")
-  }`;
+
+  const shareUrl = useMemo(() => {
+    const prefix = "https://tteb.finance";
+    // Return normal long link if the user is not connected to the wallet
+    if (account) {
+      return `${prefix + getGameShareLink(path) + account}`;
+    } else {
+      return prefix + path;
+    }
+  }, [account, path]);
 
   const renderApprovalOrGameButtons = () => {
     return isApproved ? (

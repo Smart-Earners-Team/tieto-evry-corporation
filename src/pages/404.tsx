@@ -19,7 +19,7 @@ export default function NotFoundPage() {
             <SolidButton label="Back to homepage">back to homepage</SolidButton>
           </Link>
         </div>
-        <div className="max-w-lg">
+        <div className="max-w-lg w-full overflow-x-hidden">
           <svg
             id="Layer_1"
             data-name="Layer 1"
@@ -40,7 +40,7 @@ export default function NotFoundPage() {
               cy="816.89"
               rx="202.22"
               ry="30.98"
-              transform="tranblueGray(-233.49 303.67) rotate(-19.91)"
+              transform="translate(-233.49 303.67) rotate(-19.91)"
             />
             <path
               className="cls-3"
