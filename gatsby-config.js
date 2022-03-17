@@ -42,6 +42,14 @@ module.exports = {
       },
       __key: "pages",
     },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "resources",
+        path: "./src/resources/",
+      },
+      __key: "resources",
+    },
     "gatsby-plugin-postcss",
     {
       resolve: `gatsby-plugin-nprogress`,

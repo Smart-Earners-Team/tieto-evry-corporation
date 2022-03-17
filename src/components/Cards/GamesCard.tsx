@@ -1,5 +1,5 @@
 import React from "react";
-import { BsQuestion } from "react-icons/bs";
+// import { BsQuestion } from "react-icons/bs";
 import Link from "../Link";
 
 interface GameCardProps {
@@ -8,7 +8,7 @@ interface GameCardProps {
   description: string;
   image: React.ReactNode;
   className?: string;
-  avaliable?: boolean;
+  avaliable: boolean;
 }
 
 export default function GameCard({
@@ -19,14 +19,14 @@ export default function GameCard({
   avaliable,
   className,
 }: GameCardProps) {
-  const url = "/games/" + slug + "/";
+  const url = "/defi-games/" + slug + "/";
   return (
-    <GameLink available url={url}>
+    <GameLink available={avaliable} url={url}>
       <div
-        className={`shadow-md w-full bg-yellow-50/40 m-2 max-w-xs sm:max-w-sm pb-3 hover:bg-yellow-50/10
+        className={`shadow-md w-full bg-yellow-50/40 max-w-xs sm:max-w-sm pb-3 hover:bg-yellow-50/10
         cursor-pointer transition-opacity duration-200 group ${className}`}
       >
-        <div className="w-full p-4">{avaliable ? image : <UnknownImage />}</div>
+        <div className="w-full p-4">{image}</div>
 
         <div
           className="bg-white bg-gradient-to-b from-white to-transparent rounded-t-3xl my-2 relative
@@ -39,7 +39,7 @@ export default function GameCard({
             <div className="text-lg font-bold mb-3 text-yellow-900">{name}</div>
             <div className="text-sm group-hover:underline">{description}</div>
             {avaliable && (
-              <div className="text-xs text-white mt-3">Play now</div>
+              <div className="text-xs font-black text-white mt-3">Play now</div>
             )}
           </div>
         </div>
@@ -48,9 +48,11 @@ export default function GameCard({
   );
 }
 
+/* 
 const UnknownImage = () => (
   <BsQuestion className="w-52 h-52 bg-yellow-200 mx-auto" />
 );
+ */
 
 interface GameLinkProps {
   available: boolean;
@@ -59,7 +61,9 @@ interface GameLinkProps {
 }
 const GameLink = (props: GameLinkProps) =>
   props.available ? (
-    <Link to={props.url}>{props.children}</Link>
+    <Link to={props.url} className="inline-block">
+      {props.children}
+    </Link>
   ) : (
     <div>{props.children}</div>
   );

@@ -100,7 +100,10 @@ function LamboDriverVideo({
   const handleShare = async () => {
     const copied = await copyText();
     if (copied) {
-      toastSuccess("Link Copied to Clipboard", shareLink);
+      toastSuccess(
+        "Link Copied to Clipboard",
+        "You can referrer friends to the game and earn more rewards by sharing your link with them."
+      );
     } else {
       toastError("Operation Failed", "Could not copy text to clipboard");
     }
@@ -111,7 +114,7 @@ function LamboDriverVideo({
     const canStart = canStartEngine();
     if (currentPlayer !== null) {
       const player = getPlayer(currentPlayer);
-      if(canStart && player) {
+      if (canStart && player) {
         player.play();
       }
       // check for player.played because some browsers does not allow
@@ -129,7 +132,7 @@ function LamboDriverVideo({
     Set width and height to 100% and wrap the player in a fixed aspect ratio box to get a
     responsive player: see https://css-tricks.com/aspect-ratio-boxes */
     <React.Fragment>
-      <div className="w-full bg-gray-100 relative pointer-events-none">
+      <div className="w-full bg-gray-300 relative pointer-events-none">
         <ReactPlayer
           url={supportedVideoMaps["first"]}
           className={cls("pointer-event-none", { ["hidden"]: firstCompleted })}
@@ -159,15 +162,15 @@ function LamboDriverVideo({
         <FabIcon onClick={handleShare} title="Share">
           <GiShare className="text-slate-500" />
         </FabIcon>
-        <FabIcon onClick={letChiefWave} className="lg:hidden">
+        <FabIcon onClick={letChiefWave} className="lg:hidden" title="Help">
           <MdOutlineHelp className="text-slate-500" />
         </FabIcon>
         {!muted ? (
-          <FabIcon onClick={toggleMute}>
+          <FabIcon onClick={toggleMute} title="Unmute Sound">
             <GiSpeaker className="text-slate-500" />
           </FabIcon>
         ) : (
-          <FabIcon onClick={toggleMute}>
+          <FabIcon onClick={toggleMute} title="Mute Sound">
             <GiSpeakerOff className="text-slate-500" />
           </FabIcon>
         )}

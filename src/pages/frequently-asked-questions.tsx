@@ -6,8 +6,9 @@ import CopyToClipboard from "../components/Tools/CopyToClipboard";
 import Link from "../components/Link";
 import FaqAccordion from "../components/Tools/FaqAccordion";
 import Section from "../components/Layouts/Section";
+import type { QuestionsAndAnswers } from "../config/types";
 
-const questionsAndAnswers = [
+const questionsAndAnswers: QuestionsAndAnswers[] = [
   {
     question: "Why is an audit important in crypto?",
     answer: `Anyone with some coding skills can create a project and a digital token to raise

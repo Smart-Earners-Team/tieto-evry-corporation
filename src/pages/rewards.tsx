@@ -217,7 +217,7 @@ const PageContent = () => {
           <ConnectWalletButton className="block mx-auto" />
         </div>
       )}
-      {active && !rewardsLoaded && (
+      {active && !error && !rewardsLoaded && (
         <div className="mx-auto text-center">Loading data...</div>
       )}
       {active && !error && rewardsLoaded && (

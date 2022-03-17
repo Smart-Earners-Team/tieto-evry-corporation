@@ -25,6 +25,11 @@ declare module "*.webm" {
   export = value;
 }
 
+declare module "*.png" {
+  const value: any;
+  export = value;
+}
+
 declare module "*.3gp" {
   const value: any;
   export = value;

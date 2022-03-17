@@ -108,10 +108,10 @@ const IndexPage = () => {
           </div>
         </Section>
         <Section noPadding={false} containerClass="bg-gray-50" className="text-center md:text-left">
-            <h2 className="max-w-xl">
+            <h2 className="max-w-xl mx-auto md:mr-auto md:ml-0">
               Feature an Audit
             </h2>
-            <p className="max-w-xl text-gray-500 mb-10">
+            <p className="max-w-xl text-gray-500 mb-10 mx-auto md:mr-auto md:ml-0">
               Want to get maximum exposure for your project? Why not feature it
               so it'll be pinned to the top spot, increasing your click-through
               rate and leads.
@@ -126,7 +126,7 @@ const IndexPage = () => {
           <h2 className="text-center">Also Explore</h2>
           <div
             className="flex flex-col items-center md:flex-row md:justify-between md:gap-6
-            md:items-stretch"
+            md:items-stretch space-y-10 md:space-y-0"
           >
             {featureSummary.map((summary) => (
               <Link key={summary.link} to={summary.link} className="inline-block">
@@ -185,7 +185,7 @@ interface FeatureSummaryProps {
 const FeatureSummaryCard = ({ icon, heading, text }: FeatureSummaryProps) => {
   return (
     <div
-      className="mx-auto text-center max-w-xs p-4 mb-10 md:mb-0 shadow-md rounded-3xl inline-block
+      className="mx-auto text-center max-w-xs p-4 shadow-md rounded-3xl inline-block
         bg-white hover:bg-gray-50 transition-colors duration-200 h-full"
     >
       <div className="bg-blue-300/30 h-20 w-20 mx-auto flex justify-center items-center rounded-full">

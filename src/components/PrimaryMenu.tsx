@@ -35,8 +35,8 @@ export default function PrimaryMenu() {
       <div className="flex flex-row items-center justify-between">
         <Link
           to="/"
-          className="text-lg font-semibold tracking-widest uppercase
-                rounded-lg focus:outline-none focus:shadow-outline"
+          className="text-xs font-semibold tracking-widest uppercase rounded-lg focus:outline-none
+            focus:shadow-outline"
         >
           <Logo />
         </Link>

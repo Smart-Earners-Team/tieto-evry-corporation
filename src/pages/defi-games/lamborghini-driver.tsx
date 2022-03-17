@@ -32,6 +32,8 @@ import { getAspContract, getLamboContract } from "../../utils/contractHelpers";
 import useApproveToken from "../../hooks/useApproveToken";
 import ConnectWalletButton from "../../components/Buttons/connectWalletButton";
 import SolidButton from "../../components/Buttons/SolidButton";
+import Link from "../../components/Link";
+import CopyToClipboard from "../../components/Tools/CopyToClipboard";
 
 // ASP on testnet
 const onMainet = isMainNet();
@@ -187,11 +189,13 @@ export default function LamboGamePage({ path }: PageProps) {
       try {
         setRequestedApproval(true);
         await onApprove();
+        setIsApproved(true);
       } catch (e) {
         toastError(
           "Error",
           "Please try again. Confirm the transaction and make sure you are paying enough gas!"
         );
+        setIsApproved(false);
       } finally {
         setRequestedApproval(false);
       }
@@ -227,7 +231,7 @@ export default function LamboGamePage({ path }: PageProps) {
     ) : active ? (
       <React.Fragment>
         <div className="text-xs mb-2 font-bold text-gray-400 text-center">
-          Enable Lamborghini
+          Enable Lamborghini to Begin Playing
         </div>
         <GameButton
           disabled={requestedApproval}
@@ -246,7 +250,7 @@ export default function LamboGamePage({ path }: PageProps) {
     <Layout>
       <RefreshContextProvider>
         <GamesNav shortName="Lamborghini Driver" tokenBalance={lamboBalance} />
-        <Section className="pt-5 !px-0 lg:!px-16 m-0 max-w-screen-xl flex justify-between items-start">
+        <Section className="!pt-0 !px-0 lg:!px-16 m-0 max-w-screen-xl flex justify-between items-start">
           <ChiefDriverWave visible={wave} closeHandler={thanksChief} />
           <div className="w-full lg:w-2/3 lg:inline-block lg:float-right lg:max-w-2xl">
             <LamboDriverVideo
@@ -259,6 +263,7 @@ export default function LamboGamePage({ path }: PageProps) {
                 <MetricChip
                   text="Number of Drivers"
                   value={drivers.toFixed()}
+                  className="text-gray-600"
                 />
                 <MetricChip
                   text="Income"
@@ -307,6 +312,18 @@ export default function LamboGamePage({ path }: PageProps) {
         </Section>
       </RefreshContextProvider>
       <div className="clear-both mb-8" />
+      <Section className="mb-10">
+        <p>Referrer friends to the game and earn more rewards.</p>
+        <CopyToClipboard title="Share Your Referral Link" content={shareUrl} />
+        <Link
+          to="/defi-games/faq/lambo-driver-questions-and-answers"
+          className="text-sky-600 underline font-medium hover:text-sky-500 transition-colors
+            duration-200"
+        >
+          Read some frequently asked questions about the Lamborghini Driver
+        </Link>
+        .
+      </Section>
     </Layout>
   );
 }
@@ -318,9 +335,7 @@ interface MetricChipProps {
 }
 const MetricChip = ({ text, value, className }: MetricChipProps) => {
   return (
-    <div
-      className={cls("font-extrabold text-gray-600 py-2 text-xl", className)}
-    >
+    <div className={cls("font-extrabold font-mono py-2 text-xl", className)}>
       {text}
       <div className="font-bold mt-0">{value}</div>
     </div>
@@ -427,8 +442,8 @@ const ChiefDriverWave = ({ visible, closeHandler }: ChiefDriverProps) => {
             </p>
           </div>
           <StaticImage
-            src="../../images/lamborghini-driver.png"
-            alt="Lamborghini cheif driver"
+            src="../../images/games/lamborghini-driver.png"
+            alt="Lamborghini chief driver"
             layout="fullWidth"
             placeholder="blurred"
           />
@@ -436,7 +451,7 @@ const ChiefDriverWave = ({ visible, closeHandler }: ChiefDriverProps) => {
       </div>
       <div
         className={cls(
-          "fixed inset-0 bg-black bg-opacity-20 cursor-pointer z-40",
+          "fixed inset-0 bg-black bg-opacity-20 cursor-pointer z-40 lg:hidden",
           {
             hidden: !visible,
             block: visible,

@@ -21,8 +21,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     return (
       <div
         className={clx(
-          "fixed right-4 transition-all duration-300 flex items-center max-w-sm mb-4 font-sans px-2 shadow",
-          "rounded",
+          "fixed right-1/2 md:right-4 translate-x-1/2 md:translate-x-0 transition-all duration-300 flex items-center",
+          "max-w-xs md:max-w-sm mb-4 font-sans px-2 shadow rounded w-full",
           {
             "bg-teal-50": info,
             "bg-red-50": error,
@@ -31,16 +31,19 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
           }
         )}
         ref={ref}
+        onClick={onClick}
         {...props}
       >
         <div
-          className={clx("w-12 h-12 flex-none flex justify-center items-center rounded-full", {
-            "text-teal-500 bg-teal-100": info,
-            "text-red-400 bg-red-100": error,
-            "text-green-500 bg-green-100": success,
-            "text-yellow-500 bg-yellow-100": warn,
-          })}
-          onClick={onClick}
+          className={clx(
+            "w-12 h-12 flex-none flex justify-center items-center rounded-full",
+            {
+              "text-teal-500 bg-teal-100": info,
+              "text-red-400 bg-red-100": error,
+              "text-green-500 bg-green-100": success,
+              "text-yellow-500 bg-yellow-100": warn,
+            }
+          )}
         >
           {info && <AiOutlineWarning />}
           {warn && <RiErrorWarningLine />}

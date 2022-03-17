@@ -25,13 +25,12 @@ export default function DefiToolsPage() {
       </Section>
       <Section>
         <div className="w-full mx-auto bg-gray-100 mb-5 flex justify-center items-center p-4">
-          {/* <StaticImage
+          <StaticImage
             src="https://alternative.me/crypto/fear-and-greed-index.png"
             alt="Latest Crypto Fear & Greed Index"
             className="max-w-xs mx-auto"
             placeholder="blurred"
-          /> */}
-          image
+          />
         </div>
       </Section>
     </Layout>

@@ -1,11 +1,9 @@
-import { tokens } from ".";
+import React from "react";
 
 export interface Address {
   97?: string;
   56: string;
 }
-
-type Token = {[P in keyof typeof tokens]: Address;}
 
 export interface LpTokenPair {
   id: number;
@@ -13,4 +11,9 @@ export interface LpTokenPair {
   lpAddresses: Address;
   token: Address;
   quoteToken: Address;
+}
+
+export interface QuestionsAndAnswers {
+  question: string;
+  answer: React.ReactNode;
 }

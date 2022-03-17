@@ -24,14 +24,15 @@ export default function DefiGamesPage() {
           </p>
         </header>
       </Section>
-      <Section className="mb-10 flex flex-col md:flex-row items-center md:items-start md:justify-between">
+      <Section className="mb-10 flex flex-col md:flex-row items-center md:items-start md:justify-between
+        md:space-x-2">
         <GameCard
           avaliable
           name="Lamborghini Driver"
           slug="lamborghini-driver"
           image={
             <StaticImage
-              src="../images/lamborghini-driver.png"
+              src="../../images/games/lamborghini-driver.png"
               alt="TTEB"
               layout="fullWidth"
               placeholder="blurred"
@@ -45,10 +46,18 @@ export default function DefiGamesPage() {
           `}
         />
         <GameCard
-          name="The Next Cool Game"
+          avaliable={false}
+          name="TTEB Bandits"
           slug="#"
-          image={<></>}
-          description="Keep in expectation of it."
+          image={
+            <StaticImage
+              src="../../images/games/tteb-bandits-cover.png"
+              alt="TTEB Bandit"
+              layout="fullWidth"
+              placeholder="blurred"
+            />
+          }
+          description="Is the next cool game. Keep in expectation of it!"
         />
       </Section>
     </Layout>
