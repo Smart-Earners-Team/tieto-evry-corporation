@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player/lazy";
 import cls from "classnames";
 import { GiShare, GiSpeaker, GiSpeakerOff } from "react-icons/gi";
-import { MdPlayArrow, MdOutlineHelp } from "react-icons/md";
+import { MdOutlineHelp } from "react-icons/md";
 import FabIcon from "../Icons/FabIcon";
 import useToast from "../../hooks/useToast";
 import { useCopyText } from "../../hooks";
@@ -61,6 +61,7 @@ function LamboDriverVideo({
   const { toastSuccess, toastError } = useToast();
   const copyText = useCopyText(shareLink);
 
+  // set the ref.current to state when they become available
   useEffect(() => {
     if (firstVideoRef.current && secondVideoRef.current && !firstCompleted) {
       setCurrentPlayer(firstVideoRef.current);
@@ -77,21 +78,24 @@ function LamboDriverVideo({
 
   const getPlayer = (refObject: StatePlayerRef) => {
     const { getInternalPlayer } = refObject;
-    return getInternalPlayer() as HTMLAudioElement;
+    // Return HTMLAudio element
+    const ele = getInternalPlayer();
+    return ele as HTMLAudioElement;
   };
 
-  const handleFirstPlayerEnded = () => {
-    if (currentPlayer && otherPlayer) {
+  // Runs only once when the first player has ended
+  const handleFirstPlayerEnded = useCallback(() => {
+    if (currentPlayer !== null && otherPlayer !== null) {
       setfirstCompleted(true);
       // sets the current Player to the second when the first player has ended
       setCurrentPlayer(otherPlayer);
-      setOtherPlayer(null);
       getPlayer(currentPlayer).parentElement?.classList.add("hidden");
       getPlayer(otherPlayer).parentElement?.classList.remove("hidden");
       getPlayer(otherPlayer).loop = true;
       startEngine(otherPlayer);
+      setOtherPlayer(null);
     }
-  };
+  }, [currentPlayer, otherPlayer]);
 
   const handleShare = async () => {
     const copied = await copyText();
@@ -102,12 +106,26 @@ function LamboDriverVideo({
     }
   };
 
-  const checkCanStart = () => {
+  // Stop engine if we cannot start because of some conditions
+  const checkCanStart = useCallback(() => {
     const canStart = canStartEngine();
-    if (!canStart && currentPlayer) getPlayer(currentPlayer).pause();
-  };
+    if (currentPlayer !== null) {
+      const player = getPlayer(currentPlayer);
+      if(canStart && player) {
+        player.play();
+      }
+      // check for player.played because some browsers does not allow
+      // playing a video if the user has not interacted with the document
+      else if (!canStart && player && player.played) {
+        player.pause();
+        player.currentTime = 0;
+      }
+    }
+  }, [canStartEngine, currentPlayer]);
+  checkCanStart();
+
   return (
-    /*Responsive player 
+    /* Responsive player 
     Set width and height to 100% and wrap the player in a fixed aspect ratio box to get a
     responsive player: see https://css-tricks.com/aspect-ratio-boxes */
     <React.Fragment>
@@ -125,7 +143,9 @@ function LamboDriverVideo({
         />
         <ReactPlayer
           url={supportedVideoMaps["second"]}
-          className={cls("pointer-event-none", { ["hidden"]: firstCompleted === false })}
+          className={cls("pointer-event-none", {
+            ["hidden"]: firstCompleted === false,
+          })}
           width="100%"
           height="100%"
           ref={(player2) => (secondVideoRef.current = player2)}
@@ -135,7 +155,7 @@ function LamboDriverVideo({
           onPlay={checkCanStart}
         />
       </div>
-      <div className="bg-white shadow-md p-2 flex items-center justify-end w-full">
+      <div className="bg-white shadow p-2 flex items-center justify-end w-full">
         <FabIcon onClick={handleShare} title="Share">
           <GiShare className="text-slate-500" />
         </FabIcon>

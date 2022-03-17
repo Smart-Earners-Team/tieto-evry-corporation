@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import { CallSignerType } from "../../types";
 import { getMulticallContract } from "../../utils/contractHelpers";
 
 export interface Call {
@@ -7,10 +8,9 @@ export interface Call {
   params?: any[]; // Function params
 }
 
-const multicall = async <T = any>(abi: any[], calls: Call[]): Promise<T> => {
+const multicall = async <T = any>(abi: any[], calls: Call[], signer?: CallSignerType): Promise<T> => {
   try {
-    // const multi = getKrlContract();
-    const multi = getMulticallContract();
+    const multi = getMulticallContract(signer);
 
     const itf = new ethers.utils.Interface(abi);
 

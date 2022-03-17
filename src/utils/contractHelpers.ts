@@ -16,47 +16,37 @@ import lamboDriverAbi from "../config/abi/lamborghiniDriver.json";
 import aspAbi from "../config/abi/asp.json";
 
 import { simpleRpcProvider } from "./providers";
+import { CallSignerType } from "../types";
 
 export const getContract = (
   abi: any,
   address: string,
-  signer?: ethers.Signer | ethers.providers.Provider | undefined
+  signer?: CallSignerType | undefined
 ) => {
   const signerOrProvider = signer ?? simpleRpcProvider;
   return new ethers.Contract(address, abi, signerOrProvider);
 };
 
-export const getTtebContract = (
-  signer?: ethers.Signer | ethers.providers.Provider
-) => {
+export const getTtebContract = (signer?: CallSignerType) => {
   return getContract(tteb, getTtebAddress(), signer);
 };
 
-export const getTtebDistributorContract = (
-  signer?: ethers.Signer | ethers.providers.Provider
-) => {
+export const getTtebDistributorContract = (signer?: CallSignerType) => {
   return getContract(ttebDistributor, getTtebDistributorAddress(), signer);
 };
 
-export const getLamboContract = (
-  signer?: ethers.Signer | ethers.providers.Provider
-) => {
+export const getLamboContract = (signer?: CallSignerType) => {
   return getContract(lambo, getLamboAddress(), signer);
 };
 
-export const getMulticallContract = (
-  signer?: ethers.Signer | ethers.providers.Provider
-) => {
+export const getMulticallContract = (signer?: CallSignerType) => {
   return getContract(MultiCallAbi, getMulticallAddress(), signer);
 };
 
-export const getLamboDriverContract = (
-  signer?: ethers.Signer | ethers.providers.Provider
-) => getContract(lamboDriverAbi, getLamboDriverAddress(), signer);
+export const getLamboDriverContract = (signer?: CallSignerType) =>
+  getContract(lamboDriverAbi, getLamboDriverAddress(), signer);
 
 // Only used on testnet
-export const getAspContract = (
-  signer?: ethers.Signer | ethers.providers.Provider
-) => {
+export const getAspContract = (signer?: CallSignerType) => {
   return getContract(aspAbi, getAspAddress(), signer);
 };

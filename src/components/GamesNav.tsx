@@ -23,7 +23,7 @@ export default function GamesNav({ shortName, tokenBalance }: GamesNavProps) {
       containerClass="bg-white shadow sticky !py-0"
       className="flex justify-between !py-3 items-center my-0"
     >
-      <div className="font-sansita">{shortName}</div>
+      <div className="hidden sm:block text-amber-500">{shortName}</div>
       <div className="space-x-4 text-base">
         <div className="inline-block text-primary-500 font-medium text-lg">
           {tokenBalance} <b>LAMBO</b>

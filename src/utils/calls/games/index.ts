@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
-import { ChainId } from "../../../config";
+import { isMainNet } from "../..";
 import type { CallSignerType } from "../../../types";
 import { BIG_TEN } from "../../bigNumber";
 import { getLamboDriverContract } from "../../contractHelpers";
@@ -20,7 +20,10 @@ export const getIncome = async (signer: CallSignerType) => {
   return count;
 };
 
-export const compoundIncome = async () => {};
+export const compoundIncome = async (ref: string, signer: CallSignerType) => {
+  const contract = getLamboDriverContract(signer);
+  await contract.reInvestIncome(ref);
+};
 
 export const sellIncome = async (account: string, signer: CallSignerType) => {
   const contract = getLamboDriverContract(signer);
@@ -34,8 +37,7 @@ export const buyDriver = async (
   ref?: string
 ) => {
   // We are using ASP on testnet
-  const chainId = process.env.GATSBY_CHAIN_ID;
-  const onMainnet = chainId === ChainId.MAINNET.toString();
+  const onMainnet = isMainNet();
   const decimals = onMainnet ? 18 : 8;
 
   const value = new BigNumber(amount)

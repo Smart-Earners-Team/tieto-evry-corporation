@@ -1,3 +1,4 @@
+import { isAddress } from "ethers/lib/utils";
 import React, {
   useEffect,
   useState,
@@ -62,14 +63,16 @@ export default function AppContext({
   // Referral feature support
   const [ref, setRef] = useState("");
   // Get referral address
-  const address = useQuery().get("ref");
+  const refAddress = useQuery().get("ref");
   const { fast, slow } = useContext(RefreshContext);
 
   useEffect(() => {
-    if (address) {
+    if (account) {
+      const address =
+        refAddress && isAddress(refAddress) ? refAddress : account;
       setRef(address);
     }
-  }, [address]);
+  }, [refAddress, account]);
 
   useEffect(() => {
     if (active) {

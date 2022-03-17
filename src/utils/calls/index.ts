@@ -109,3 +109,26 @@ export const fetchTokenPrices = async (pairs: LpTokenPair) => {
     tokenPriceVsQuote: quoteTokenAmountTotal.div(tokenAmountTotal).toJSON(),
   };
 };
+
+// check if a user has allowed spending a token in a specified smart contract
+export const checkTokenAllowance = async (
+  contractAddress: string,
+  account: string,
+  tokenAddress: string,
+  signer: CallSignerType
+) => {
+  const calls = [
+    {
+      address: tokenAddress,
+      name: "allowance",
+      params: [account, contractAddress],
+    },
+  ];
+
+  const [rawTokenAllowance] = (await multicall(
+    erc20,
+    calls,
+    signer
+  )) as BigNumber.Value[];
+  return new BigNumber(rawTokenAllowance);
+};

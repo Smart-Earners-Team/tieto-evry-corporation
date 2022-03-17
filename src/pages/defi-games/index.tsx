@@ -1,9 +1,9 @@
 import React from "react";
-import { Heading } from "../components/Typography/Headings";
-import Layout from "../components/Layouts";
-import SEO from "../components/SEO";
-import Section from "../components/Layouts/Section";
-import GameCard from "../components/Cards/GamesCard";
+import { Heading } from "../../components/Typography/Headings";
+import Layout from "../../components/Layouts";
+import SEO from "../../components/SEO";
+import Section from "../../components/Layouts/Section";
+import GameCard from "../../components/Cards/GamesCard";
 import { StaticImage } from "gatsby-plugin-image";
 
 export default function DefiGamesPage() {
