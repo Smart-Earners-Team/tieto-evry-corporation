@@ -79,6 +79,9 @@ export default function LamboGamePage({ path }: PageProps) {
         const income = await getIncome(library.getSigner());
         setDrivers(driverCount);
         setIncome(income);
+      } else {
+        setDrivers(0);
+        setIncome(0);
       }
     })();
   }, [library, active, account, buying, compounding, selling]);
@@ -98,6 +101,8 @@ export default function LamboGamePage({ path }: PageProps) {
         } else {
           setIsApproved(false);
         }
+      } else {
+        setIsApproved(false);
       }
     })();
   }, [account, active, library, isApproved]);
@@ -174,8 +179,9 @@ export default function LamboGamePage({ path }: PageProps) {
           we know your customers will enjoy the ride while you earn along the way.`
         );
         setAmountToPay("");
+        triggerFetchTokens();
       } catch (err) {
-        console.error(err);
+        // console.error(err);
         toastError(
           "Error",
           "Something went wrong while trying to process your request."
@@ -401,7 +407,15 @@ interface ChiefDriverProps {
 }
 const ChiefDriverWave = ({ visible, closeHandler }: ChiefDriverProps) => {
   const waveClass = "visible";
-  const byeClass = "invisible w-[0px]";
+  const byeClass = "invisible w-0 h-0";
+  useEffect(() => {
+    if (visible) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+    return () => document.body.classList.remove("overflow-hidden");
+  }, [visible]);
 
   return (
     <React.Fragment>

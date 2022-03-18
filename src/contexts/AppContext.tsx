@@ -39,8 +39,8 @@ export interface GlobalAppContext {
 const defaultValues: GlobalAppContext = {
   ttebWallet: {
     active: false,
-    balance: "0.000",
-    lamboBalance: "0.000",
+    balance: "0",
+    lamboBalance: "0",
     isConnecting: true,
     error: undefined,
     retry: () => {},
@@ -60,8 +60,8 @@ export default function AppContext({
   const [isConnecting, setIsConnecting] = useState(false);
   const { deactivate, active, error, account, library } = useActiveWeb3React();
   // get wallet balance in bnb
-  const [balance, setBalance] = useState("0.000");
-  const [lamboBalance, setLamboBalance] = useState("0.000");
+  const [balance, setBalance] = useState("0");
+  const [lamboBalance, setLamboBalance] = useState("0");
 
   /* A workaround, I use this state to trigger an update on this context and
   Refetch the tokenBalances when it changes. */
@@ -99,23 +99,23 @@ export default function AppContext({
   };
 
   const pullTokensBalanceAsync = useCallback(async () => {
-    if (!library || !active || !account) return;
+    if (library && active && account) {
+      const tteb = await getTokenBalance(
+        getTtebContract(library.getSigner()),
+        account,
+        9
+      );
+      // On testnet, we are using ASP
+      const onMainnet = isMainNet();
+      const contract = onMainnet
+        ? getLamboContract(library.getSigner())
+        : getAspContract(library.getSigner());
+      const decimals = onMainnet ? 18 : 8;
 
-    const tteb = await getTokenBalance(
-      getTtebContract(library.getSigner()),
-      account,
-      9
-    );
-    // On testnet, we are using ASP
-    const onMainnet = isMainNet();
-    const contract = onMainnet
-      ? getLamboContract(library.getSigner())
-      : getAspContract(library.getSigner());
-    const decimals = onMainnet ? 18 : 8;
-
-    const lambo = await getTokenBalance(contract, account, decimals);
-    setBalance(tteb);
-    setLamboBalance(lambo);
+      const lambo = await getTokenBalance(contract, account, decimals);
+      setBalance(tteb);
+      setLamboBalance(lambo);
+    }
     // also add the fast and slow vars from the refresh context
   }, [library, active, account, fast, slow, trigger]);
   pullTokensBalanceAsync();

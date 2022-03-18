@@ -24,7 +24,7 @@ export default function GamesNav({ shortName, tokenBalance }: GamesNavProps) {
       className="flex justify-between !py-3 items-center my-0"
     >
       <div className="hidden sm:block font-medium text-amber-600">{shortName}</div>
-      <div className="space-x-4 text-base">
+      <div className="space-x-4 text-base w-full flex justify-between items-center">
         <div className="inline-block text-primary-500 font-medium text-lg">
           {tokenBalance} <b>LAMBO</b>
         </div>
