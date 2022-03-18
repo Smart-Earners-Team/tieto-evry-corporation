@@ -102,13 +102,13 @@ export default function LamboGamePage({ path }: PageProps) {
   }, [account, active, library, isApproved]);
 
   const handleSellIncome = useCallback(async () => {
-    if (account && library) {
+    if (library) {
       setSelling(true);
       try {
-        await sellIncome(account, library.getSigner());
+        await sellIncome(library.getSigner());
         toastSuccess("Success", "Your income has been sold to lambo");
       } catch (err) {
-        // console.error(err);
+        console.error(err);
         toastError(
           "Error",
           "Something went wrong while trying to sell your income"
@@ -117,7 +117,7 @@ export default function LamboGamePage({ path }: PageProps) {
         setSelling(false);
       }
     }
-  }, [account, library]);
+  }, [library]);
 
   const handleCompoundIncome = useCallback(async () => {
     if (account && library) {

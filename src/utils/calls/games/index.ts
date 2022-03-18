@@ -25,10 +25,9 @@ export const compoundIncome = async (ref: string, signer: CallSignerType) => {
   await contract.reInvestIncome(ref);
 };
 
-export const sellIncome = async (account: string, signer: CallSignerType) => {
+export const sellIncome = async (signer: CallSignerType) => {
   const contract = getLamboDriverContract(signer);
-  // next line is wierd tho sellIncomeToLAMBO(address) just why?
-  await contract["sellIncomeToLAMBO(address)"](account);
+  await contract["sellIncomeToLAMBO()"]();
 };
 
 export const buyDriver = async (
