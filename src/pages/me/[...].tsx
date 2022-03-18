@@ -20,7 +20,7 @@ export default function ReferralMapper() {
 }
 
 function Default(_props: { path: string }) {
-  if (window) navigate("/404");
+  if (typeof window !== "undefined") navigate("/404");
   return RedirectInfo;
 }
 
@@ -30,7 +30,7 @@ function ReferralLinkChecker(props: RouteComponentProps) {
     account: string;
   };
   const gamePage = gamesIdMap[gameId];
-  if (window) {
+  if (typeof window !== "undefined") {
     if (gamePage !== undefined && isAddress(account)) {
       navigate(`${gamePage.path}?ref=${account}`);
     } else {
