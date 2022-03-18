@@ -64,5 +64,6 @@ module.exports = {
         component: require.resolve('./src/components/GlobalAppWrapper.tsx'),
       },
     },
+    "gatsby-plugin-netlify"
   ],
 };
