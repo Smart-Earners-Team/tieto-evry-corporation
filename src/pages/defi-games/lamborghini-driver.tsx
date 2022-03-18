@@ -410,11 +410,12 @@ const ChiefDriverWave = ({ visible, closeHandler }: ChiefDriverProps) => {
   const byeClass = "invisible w-0 h-0";
   useEffect(() => {
     if (visible) {
-      document.body.classList.add("overflow-hidden");
+      document.body.classList.add("overflow-hidden lg:overflow-auto");
     } else {
-      document.body.classList.remove("overflow-hidden");
+      document.body.classList.remove("overflow-hidden lg:overflow-auto");
     }
-    return () => document.body.classList.remove("overflow-hidden");
+    return () =>
+      document.body.classList.remove("overflow-hidden lg:overflow-auto");
   }, [visible]);
 
   return (
