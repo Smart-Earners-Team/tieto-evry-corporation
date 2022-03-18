@@ -322,7 +322,7 @@ export default function LamboGamePage({ path }: PageProps) {
       </RefreshContextProvider>
       <div className="clear-both mb-8" />
       <Section className="mb-10">
-        <p>Referrer friends to the game and earn more rewards.</p>
+        <p>Refer friends to the game and earn more rewards.</p>
         <CopyToClipboard title="Share Your Referral Link" content={shareUrl} />
         <Link
           to="/defi-games/faq/lambo-driver-questions-and-answers"
