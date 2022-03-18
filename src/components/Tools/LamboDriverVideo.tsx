@@ -49,10 +49,8 @@ function LamboDriverVideo({
 }: LamboDriverVideoProps) {
   // state to track if the first video has finished playing
   const [firstCompleted, setfirstCompleted] = useState(false);
-  const [currentPlayer, setCurrentPlayer] = useState<StatePlayerRef | null>(
-    null
-  );
-  const [otherPlayer, setOtherPlayer] = useState<StatePlayerRef | null>(null);
+  const [firstPlayer, setFirstPlayer] = useState<StatePlayerRef | null>(null);
+  const [secondPlayer, setSecondPlayer] = useState<StatePlayerRef | null>(null);
   const [muted, setMuted] = useState(false);
 
   const firstVideoRef = useRef<ReactPlayer | null>(null);
@@ -64,15 +62,10 @@ function LamboDriverVideo({
   // set the ref.current to state when they become available
   useEffect(() => {
     if (firstVideoRef.current && secondVideoRef.current && !firstCompleted) {
-      setCurrentPlayer(firstVideoRef.current);
-      setOtherPlayer(secondVideoRef.current);
+      setFirstPlayer(firstVideoRef.current);
+      setSecondPlayer(secondVideoRef.current);
     }
   }, [firstVideoRef, secondVideoRef]);
-
-  const startEngine = async (player: ReactPlayer) => {
-    const canStart = canStartEngine();
-    if (canStart) getPlayer(player).play();
-  };
 
   const toggleMute = () => setMuted((p) => !p);
 
@@ -83,19 +76,58 @@ function LamboDriverVideo({
     return ele as HTMLAudioElement;
   };
 
+  const startEngine = async (player: ReactPlayer) => {
+    const canStart = canStartEngine();
+    if (canStart) getPlayer(player).play();
+  };
+
   // Runs only once when the first player has ended
   const handleFirstPlayerEnded = useCallback(() => {
-    if (currentPlayer !== null && otherPlayer !== null) {
+    if (firstPlayer !== null && secondPlayer !== null) {
+      const player1 = getPlayer(firstPlayer);
+      const player2 = getPlayer(secondPlayer);
       setfirstCompleted(true);
-      // sets the current Player to the second when the first player has ended
-      setCurrentPlayer(otherPlayer);
-      getPlayer(currentPlayer).parentElement?.classList.add("hidden");
-      getPlayer(otherPlayer).parentElement?.classList.remove("hidden");
-      getPlayer(otherPlayer).loop = true;
-      startEngine(otherPlayer);
-      setOtherPlayer(null);
+      player1.parentElement?.classList.add("hidden");
+      if (!player1.ended) player1.pause();
+      setFirstPlayer(null);
+
+      player2.parentElement?.classList.remove("hidden");
+      player2.loop = true;
+      startEngine(secondPlayer);
     }
-  }, [currentPlayer, otherPlayer]);
+  }, [firstPlayer, secondPlayer]);
+
+  // Stop engine if we cannot start because of some conditions
+  const checkCanStart = useCallback(() => {
+    const canStart = canStartEngine();
+    // this runs only for the first video
+    if (firstCompleted === false && firstPlayer !== null) {
+      const player1 = getPlayer(firstPlayer);
+      if (canStart && player1) {
+        player1.play();
+      }
+      // check for player.played because some browsers do not allow
+      // playing a video if the user has not interacted with the document
+      else if (!canStart && player1 && player1.played) {
+        player1.pause();
+        player1.currentTime = 0;
+      }
+      // This runs only for the second video
+    } else if (
+      firstCompleted &&
+      firstPlayer === null &&
+      secondPlayer !== null
+    ) {
+      const player2 = getPlayer(secondPlayer);
+      if (canStart && player2) {
+        player2.play();
+      } else if (!canStart && player2 && player2.played) {
+        player2.pause();
+        player2.currentTime = 0;
+      }
+    }
+  }, [canStartEngine, firstPlayer, secondPlayer, firstCompleted]);
+  checkCanStart();
 
   const handleShare = async () => {
     const copied = await copyText();
@@ -108,24 +140,6 @@ function LamboDriverVideo({
       toastError("Operation Failed", "Could not copy text to clipboard");
     }
   };
-
-  // Stop engine if we cannot start because of some conditions
-  const checkCanStart = useCallback(() => {
-    const canStart = canStartEngine();
-    if (currentPlayer !== null) {
-      const player = getPlayer(currentPlayer);
-      if (canStart && player) {
-        player.play();
-      }
-      // check for player.played because some browsers does not allow
-      // playing a video if the user has not interacted with the document
-      else if (!canStart && player && player.played) {
-        player.pause();
-        player.currentTime = 0;
-      }
-    }
-  }, [canStartEngine, currentPlayer]);
-  checkCanStart();
 
   return (
     /* Responsive player 
