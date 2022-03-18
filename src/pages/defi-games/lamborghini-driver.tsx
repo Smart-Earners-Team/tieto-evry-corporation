@@ -80,7 +80,7 @@ export default function LamboGamePage({ path }: PageProps) {
         setIncome(income);
       }
     })();
-  }, [library, active, account, buying]);
+  }, [library, active, account, buying, compounding, selling]);
 
   // Check user ASP/Lambo allowance
   useEffect(() => {
