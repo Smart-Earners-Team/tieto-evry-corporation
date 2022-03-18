@@ -56,7 +56,7 @@ export default function LamboGamePage({ path }: PageProps) {
   const [wave, setWave] = useState(true);
   const letChiefWave = useCallback(() => setWave(true), []);
   const thanksChief = useCallback(() => setWave(false), []);
-
+  
   const {
     ttebWallet: { lamboBalance },
     refAddress,

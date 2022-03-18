@@ -59,6 +59,23 @@ function LamboDriverVideo({
   const { toastSuccess, toastError } = useToast();
   const copyText = useCopyText(shareLink);
 
+  /* In cases when users are redirected from referral link, they may not have interacted
+  with the document. This effect is also used to trigger another attempt to play the video at the
+  time when the chief diver modal is closed maybe */
+  const playIfNotTouched = useCallback(() => {
+    if (firstPlayer !== null && canStartEngine()) {
+      const p = getPlayer(firstPlayer);
+      if (p && !p.played) {
+        p.play();
+      }
+    }
+  }, [firstPlayer, canStartEngine]);
+
+  useEffect(() => {
+    document.addEventListener("mouseenter", playIfNotTouched);
+    return () => document.removeEventListener("mouseenter", playIfNotTouched);
+  });
+
   // set the ref.current to state when they become available
   useEffect(() => {
     if (firstVideoRef.current && secondVideoRef.current && !firstCompleted) {
