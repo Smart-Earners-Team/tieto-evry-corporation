@@ -60,6 +60,7 @@ export default function LamboGamePage({ path }: PageProps) {
   const {
     ttebWallet: { lamboBalance },
     refAddress,
+    triggerFetchTokens,
   } = useAppContext();
   const { library, active, account } = useActiveWeb3React();
   const { toastError, toastSuccess } = useToast();
@@ -107,8 +108,9 @@ export default function LamboGamePage({ path }: PageProps) {
       try {
         await sellIncome(library.getSigner());
         toastSuccess("Success", "Your income has been sold to lambo");
+        triggerFetchTokens();
       } catch (err) {
-        console.error(err);
+        // console.error(err);
         toastError(
           "Error",
           "Something went wrong while trying to sell your income"

@@ -6,11 +6,11 @@ import React, {
   useCallback,
   useContext,
 } from "react";
-import { ChainId } from "../config";
 import useQuery from "../hooks";
 import useActiveWeb3React from "../hooks/useActiveWeb3React";
 import { useEagerConnect } from "../hooks/useEagerConnect";
 import { useInactiveListener } from "../hooks/useInactiveListener";
+import { isMainNet } from "../utils";
 import { getTokenBalance } from "../utils/calls";
 import {
   getAspContract,
@@ -33,6 +33,7 @@ export interface GlobalAppContext {
     retry: () => void;
   };
   refAddress: string;
+  triggerFetchTokens: () => void;
 }
 
 const defaultValues: GlobalAppContext = {
@@ -45,6 +46,7 @@ const defaultValues: GlobalAppContext = {
     retry: () => {},
   },
   refAddress: "",
+  triggerFetchTokens: () => {},
 };
 
 export const GlobalAppContextProvider =
@@ -60,6 +62,11 @@ export default function AppContext({
   // get wallet balance in bnb
   const [balance, setBalance] = useState("0.000");
   const [lamboBalance, setLamboBalance] = useState("0.000");
+
+  /* A workaround, I use this state to trigger an update on this context and
+  Refetch the tokenBalances when it changes. */
+  const [trigger, setTrigger] = useState(false);
+
   // Referral feature support
   const [ref, setRef] = useState("");
   // Get referral address
@@ -100,8 +107,7 @@ export default function AppContext({
       9
     );
     // On testnet, we are using ASP
-    const chainId = process.env.GATSBY_CHAIN_ID;
-    const onMainnet = chainId === ChainId.MAINNET.toString();
+    const onMainnet = isMainNet();
     const contract = onMainnet
       ? getLamboContract(library.getSigner())
       : getAspContract(library.getSigner());
@@ -111,8 +117,10 @@ export default function AppContext({
     setBalance(tteb);
     setLamboBalance(lambo);
     // also add the fast and slow vars from the refresh context
-  }, [library, active, account, fast, slow]);
+  }, [library, active, account, fast, slow, trigger]);
   pullTokensBalanceAsync();
+
+  const triggerFetchTokens = useCallback(() => setTrigger((p) => !p), []);
 
   return (
     <GlobalAppContextProvider.Provider
@@ -126,6 +134,7 @@ export default function AppContext({
           retry: handleRetry,
         },
         refAddress: ref,
+        triggerFetchTokens,
       }}
     >
       {children}
