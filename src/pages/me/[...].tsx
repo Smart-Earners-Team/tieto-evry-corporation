@@ -3,6 +3,8 @@ import { Router, RouteComponentProps } from "@reach/router";
 import { navigate } from "gatsby";
 import { gamesIdMap } from "../../config/constants/games";
 import { isAddress } from "ethers/lib/utils";
+import Section from "../../components/Layouts/Section";
+import { FaSpinner } from "react-icons/fa";
 
 /* This is a client only route.
   It renders the ReferralLinkChecker component when the url matches
@@ -12,14 +14,14 @@ export default function ReferralMapper() {
   return (
     <Router basepath="/me">
       <ReferralLinkChecker path="/:gameId/:account" />
-      <Default path="/" />
+      <Default path="/*" />
     </Router>
   );
 }
 
 function Default(_props: { path: string }) {
   navigate("/404");
-  return null;
+  return RedirectInfo;
 }
 
 function ReferralLinkChecker(props: RouteComponentProps) {
@@ -33,5 +35,12 @@ function ReferralLinkChecker(props: RouteComponentProps) {
   } else {
     navigate("/404");
   }
-  return null;
+  return RedirectInfo;
 }
+
+const RedirectInfo = (
+  <Section className="text-xl text-center">
+    Please wait, you are being redirected to the page...
+    <FaSpinner className="animate-spin mx-auto mt-4" />
+  </Section>
+);
