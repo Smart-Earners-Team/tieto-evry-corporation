@@ -407,15 +407,15 @@ interface ChiefDriverProps {
 }
 const ChiefDriverWave = ({ visible, closeHandler }: ChiefDriverProps) => {
   const waveClass = "visible";
-  const byeClass = "invisible w-0 h-0";
+  const byeClass = "invisible w-0 h-0 lg:h-auto";
   useEffect(() => {
     if (visible) {
-      document.body.classList.add("overflow-hidden lg:overflow-auto");
+      document.body.classList.add("overflow-hidden", "lg:overflow-auto");
     } else {
-      document.body.classList.remove("overflow-hidden lg:overflow-auto");
+      document.body.classList.remove("overflow-hidden", "lg:overflow-auto");
     }
     return () =>
-      document.body.classList.remove("overflow-hidden lg:overflow-auto");
+      document.body.classList.remove("overflow-hidden", "lg:overflow-auto");
   }, [visible]);
 
   return (
