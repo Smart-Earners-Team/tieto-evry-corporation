@@ -135,7 +135,7 @@ export default function LamboGamePage({ path }: PageProps) {
         setCompounding(false);
       }
     }
-  }, [account, library]);
+  }, [account, library, refAddress]);
 
   const handleInputChange: React.FormEventHandler<HTMLInputElement> =
     useCallback(
