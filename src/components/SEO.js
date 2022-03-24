@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import ogImage from '../images/tteb-finance-og-image.jpg';
-import twitterImage from '../images/tteb-finance-twitter-image.jpg';
+// import twitterImage from '../images/tteb-finance-twitter-image.jpg';
 
 const query = graphql`
   query GetSiteMetadata {
@@ -24,10 +24,10 @@ function SEO({ meta, title, description, slug, lang = 'en' }) {
       render={(data) => {
         const { siteMetadata } = data.site;
         const metaDescription = description || siteMetadata.description;
-        const metaImages = { og: ogImage, twitter: twitterImage };
+        const metaImages = { og: ogImage/* , twitter: twitterImage  */};
         const getMetaImageUrl = (image) => `${siteMetadata.siteUrl}${image}`;
         const url = `${siteMetadata.siteUrl}${slug}`;
-        const twitterUrl = "@TTEBfinance";
+        // const twitterUrl = "@TTEBfinance";
         return (
           <Helmet
             htmlAttributes={{ lang }}
@@ -57,7 +57,7 @@ function SEO({ meta, title, description, slug, lang = 'en' }) {
                 property: 'og:description',
                 content: metaDescription,
               },
-              {
+              /* {
                 name: 'twitter:card',
                 content: 'summary',
               },
@@ -72,7 +72,7 @@ function SEO({ meta, title, description, slug, lang = 'en' }) {
               {
                 name: 'twitter:description',
                 content: metaDescription,
-              },
+              }, */
             ]
               .concat(
                 [
@@ -80,10 +80,10 @@ function SEO({ meta, title, description, slug, lang = 'en' }) {
                     property: 'og:image',
                     content: getMetaImageUrl(metaImages.og),
                   },
-                  {
+                  /* {
                     name: 'twitter:image',
                     content: getMetaImageUrl(metaImages.twitter),
-                  },
+                  }, */
                 ]
               )
               .concat(meta)}

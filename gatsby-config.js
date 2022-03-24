@@ -6,11 +6,12 @@ module.exports = {
     description: `Audit any solidity based blockchain (eth, bsc, ftm, polygon, etc) smart contract.
       Get your audit today with our super fast processing time and keep your investors happy`,
     socials: [
-      { name: "twitter", url: "https://twitter.com/TTEBfinance" },
+      // { name: "twitter", url: "https://twitter.com/TTEBfinance" },
       { name: "telegramGroup", url: "https://t.me/TietoEVRYlamborghini" },
       { name: "telegramNews", url: "https://t.me/TTEBfinance" },
       { name: "facebook", url: "https://fb.me/TTEBfinance" },
       { name: "redit", url: "https://reddit.com/r/TTEBfinance" },
+      { name: "medium", url: "https://ttebfinance.medium.com" },
     ],
   },
   plugins: [
@@ -59,11 +60,17 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-layout',
+      resolve: "gatsby-plugin-layout",
       options: {
-        component: require.resolve('./src/components/GlobalAppWrapper.tsx'),
+        component: require.resolve("./src/components/GlobalAppWrapper.tsx"),
       },
     },
-    "gatsby-plugin-netlify"
+    "gatsby-plugin-netlify",
+    {
+      resolve: "gatsby-plugin-load-script",
+      options: {
+        src: "https://sendfox.com/js/form.js",
+      },
+    },
   ],
 };
