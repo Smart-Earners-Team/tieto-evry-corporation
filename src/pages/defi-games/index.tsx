@@ -27,7 +27,7 @@ export default function DefiGamesPage() {
       <Section className="mb-10 flex flex-col md:flex-row items-center md:items-start md:justify-between
         md:space-x-2">
         <GameCard
-          avaliable
+          avaliable={false}
           name="Lamborghini Driver"
           slug="lamborghini-driver"
           image={

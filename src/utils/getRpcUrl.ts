@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== "production" && !process.env.GATSBY_NODE_1) {
 }
 
 // available nodes to connect to
-const developmentNode = process.env.GATSBY_NODE_2!;
+const developmentNode = process.env.GATSBY_NODE_1!;
 
 const getNodeUrl = () => {
   // Use custom node if available (both for development and production)
