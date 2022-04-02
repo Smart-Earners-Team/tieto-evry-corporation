@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
-import { isMainNet } from "../..";
+// import { isMainNet } from "../..";
 import type { CallSignerType } from "../../../types";
 import { BIG_TEN } from "../../bigNumber";
 import { getLamboDriverContract } from "../../contractHelpers";
@@ -17,6 +17,7 @@ export const getIncome = async (signer: CallSignerType) => {
   const contract = getLamboDriverContract(signer);
   const { _hex } = (await contract.getMyIncome()) as ethers.BigNumber;
   const count = new BigNumber(_hex).toNumber();
+  console.log(count)
   return count;
 };
 
@@ -27,7 +28,9 @@ export const compoundIncome = async (ref: string, signer: CallSignerType) => {
 
 export const sellIncome = async (signer: CallSignerType) => {
   const contract = getLamboDriverContract(signer);
-  await contract["sellIncomeToLAMBO()"]();
+  const tx = await contract.TakeProfitsAsLAMBO();
+  const receipt = await tx.wait();
+  return receipt.status;
 };
 
 export const buyDriver = async (
@@ -35,9 +38,10 @@ export const buyDriver = async (
   signer: CallSignerType,
   ref?: string
 ) => {
-  // We are using ASP on testnet
-  const onMainnet = isMainNet();
-  const decimals = onMainnet ? 18 : 8;
+  // We are using tCoin on testnet
+  // const onMainnet = isMainNet();
+  // const decimals = onMainnet ? 18 : 8;
+  const decimals = 18;
 
   const value = new BigNumber(amount)
     .times(BIG_TEN.pow(decimals))

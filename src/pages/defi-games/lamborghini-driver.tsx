@@ -24,21 +24,21 @@ import { PageProps } from "gatsby";
 import { checkTokenAllowance } from "../../utils/calls";
 import { getGameShareLink, isMainNet } from "../../utils";
 import {
-  getAspAddress,
+  getTCoinAddress,
   getLamboAddress,
   getLamboDriverAddress,
 } from "../../utils/addressHelpers";
-import { getAspContract, getLamboContract } from "../../utils/contractHelpers";
+import { getTCoinContract, getLamboContract } from "../../utils/contractHelpers";
 import useApproveToken from "../../hooks/useApproveToken";
 import ConnectWalletButton from "../../components/Buttons/connectWalletButton";
 import SolidButton from "../../components/Buttons/SolidButton";
 import Link from "../../components/Link";
 import CopyToClipboard from "../../components/Tools/CopyToClipboard";
 
-// ASP on testnet
+// tCoin on testnet
 const onMainet = isMainNet();
-const tokenAddress = onMainet ? getLamboAddress() : getAspAddress();
-const approveTokenContract = onMainet ? getLamboContract : getAspContract;
+const tokenAddress = onMainet ? getLamboAddress() : getTCoinAddress();
+const approveTokenContract = onMainet ? getLamboContract : getTCoinContract;
 
 export default function LamboGamePage({ path }: PageProps) {
   const [drivers, setDrivers] = useState(0);
@@ -86,7 +86,7 @@ export default function LamboGamePage({ path }: PageProps) {
     })();
   }, [library, active, account, buying, compounding, selling]);
 
-  // Check user ASP/Lambo allowance
+  // Check user allowance
   useEffect(() => {
     (async () => {
       if (account != null && active && library != null) {
@@ -148,7 +148,7 @@ export default function LamboGamePage({ path }: PageProps) {
     useCallback(
       async (e) => {
         const val = e.currentTarget.value.replace(/,/g, ".");
-        const pattern = /^[0-9]*[.,]?[0-9]{0,8}$/g;
+        const pattern = /^[0-9]*[.,]?[0-9]{0,18}$/g;
         if (!pattern.test(val)) return;
         setAmountToPay(val);
       },

@@ -98,7 +98,7 @@ const questionsAndAnswers: QuestionsAndAnswers[] = [
     question:
       "Will you be launching your own token? If so, what utility will it have?",
     answer: (
-      <>
+      <div className="space-y-3">
         <p>
           Yes, we already have two(2) tokens that are part of a network of
           trusted projects with the following utilities:
@@ -134,7 +134,7 @@ const questionsAndAnswers: QuestionsAndAnswers[] = [
           </Link>{" "}
           page.
         </p>
-      </>
+      </div>
     ),
   },
   {

@@ -6,7 +6,6 @@ import Typist from "react-typist";
 // import PrimaryNav from "../Navbars/PrimaryNav";
 import Section from "../Section";
 import type { LandingPageHeaderProps } from "./types";
-import PrimaryMenu from "../../PrimaryMenu";
 import { StaticImage } from "gatsby-plugin-image";
 
 export default function LandingPageHeader({
@@ -15,7 +14,6 @@ export default function LandingPageHeader({
 }: LandingPageHeaderProps) {
   return (
     <Section containerClass="bg-gray-50" className="!pt-0 pb-0">
-      <PrimaryMenu />
       <div
         className="min-h-screen md:min-h-0 md:h-screen md:max-h-[700px] mx-auto pt-16 flex flex-col
           md:flex-row md:justify-between md:item-center gap-3 text-center md:text-left"

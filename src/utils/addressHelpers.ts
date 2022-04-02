@@ -26,4 +26,4 @@ export const getLamboDriverAddress = () =>
   getAddress(addresses.lamboDriverGame);
 
 // Used only on testnet
-export const getAspAddress = () => getAddress(addresses.asp);
+export const getTCoinAddress = () => getAddress(addresses.tCoin);

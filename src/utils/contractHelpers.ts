@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import {
-  getAspAddress,
+  getTCoinAddress,
   getLamboAddress,
   getLamboDriverAddress,
   getMulticallAddress,
@@ -13,7 +13,7 @@ import lambo from "../config/abi/lambo.json";
 import ttebDistributor from "../config/abi/ttebDistributor.json";
 import MultiCallAbi from "../config/abi/multicall.json";
 import lamboDriverAbi from "../config/abi/lamborghiniDriver.json";
-import aspAbi from "../config/abi/asp.json";
+import tCoinAbi from "../config/abi/tCoin.json";
 
 import { simpleRpcProvider } from "./providers";
 import { CallSignerType } from "../types";
@@ -47,6 +47,6 @@ export const getLamboDriverContract = (signer?: CallSignerType) =>
   getContract(lamboDriverAbi, getLamboDriverAddress(), signer);
 
 // Only used on testnet
-export const getAspContract = (signer?: CallSignerType) => {
-  return getContract(aspAbi, getAspAddress(), signer);
+export const getTCoinContract = (signer?: CallSignerType) => {
+  return getContract(tCoinAbi, getTCoinAddress(), signer);
 };

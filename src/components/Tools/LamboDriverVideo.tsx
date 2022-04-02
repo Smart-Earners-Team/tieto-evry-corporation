@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactPlayer from "react-player/lazy";
+import ReactPlayer from "react-player/file";
 import cls from "classnames";
 import { GiShare, GiSpeaker, GiSpeakerOff } from "react-icons/gi";
 import { MdOutlineHelp } from "react-icons/md";

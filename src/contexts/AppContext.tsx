@@ -13,7 +13,7 @@ import { useInactiveListener } from "../hooks/useInactiveListener";
 import { isMainNet } from "../utils";
 import { getTokenBalance } from "../utils/calls";
 import {
-  getAspContract,
+  getTCoinContract,
   getLamboContract,
   getTtebContract,
 } from "../utils/contractHelpers";
@@ -105,11 +105,11 @@ export default function AppContext({
         account,
         9
       );
-      // On testnet, we are using ASP
+      // On testnet, we are using tCoin
       const onMainnet = isMainNet();
       const contract = onMainnet
         ? getLamboContract(library.getSigner())
-        : getAspContract(library.getSigner());
+        : getTCoinContract(library.getSigner());
       const decimals = onMainnet ? 18 : 8;
 
       const lambo = await getTokenBalance(contract, account, decimals);

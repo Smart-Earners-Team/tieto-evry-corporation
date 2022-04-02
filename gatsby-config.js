@@ -66,11 +66,5 @@ module.exports = {
       },
     },
     "gatsby-plugin-netlify",
-    {
-      resolve: "gatsby-plugin-load-script",
-      options: {
-        src: "https://sendfox.com/js/form.js",
-      },
-    },
   ],
 };

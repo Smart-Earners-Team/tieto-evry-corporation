@@ -42,12 +42,12 @@ export const addresses = {
     97: "0x8F3273Fb89B075b1645095ABaC6ed17B2d4Bc576",
   },
   lamboDriverGame: {
-    97: "0x8c1b307bb68e51bbea11268f79080346aeceafd3",
+    97: "0xB2430dd5deBB2d8B376d2fAcb3e8A686E81aB1E1",
     56: "",
   },
   // only for testnet
-  asp: {
-    97: "0xd1E177d9ADE89434c43f09489Dcf7F0475599DD3",
+  tCoin: {
+    97: "0x3807C468D722aAf9e9A82d8b4b1674E66a12E607",
     56: "",
   },
 };

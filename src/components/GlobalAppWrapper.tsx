@@ -23,11 +23,9 @@ export default function GlobalAppWrapper(props: {
           <ToastListener />
           <ModalProvider>
             <IconContext.Provider value={{ className: "w-6 h-6" }}>
-              {props.path !== "/" && (
-                <Section className="!pt-0 pb-0" containerClass="shadow-sm">
-                  <PrimaryMenu />
-                </Section>
-              )}
+              <Section className="!pt-0 pb-0" containerClass="shadow-sm">
+                <PrimaryMenu />
+              </Section>
               {props.children}
             </IconContext.Provider>
           </ModalProvider>
