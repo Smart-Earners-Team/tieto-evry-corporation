@@ -53,7 +53,7 @@ export default function GameCard({
               {description}
             </div>
             {avaliable && (
-              <div className="text-lg font-black mt-3 text-yellow-700 animate-bounce">
+              <div className="text-lg font-black mt-3 text-yellow-700 animate-bounce uppercase">
                 Play now
               </div>
             )}

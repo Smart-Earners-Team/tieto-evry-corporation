@@ -160,8 +160,7 @@ export default function LamboGamePage({ path }: PageProps) {
 
   const handleSelectMax = useCallback(() => {
     const bal = new BigNumber(lamboBalance);
-    const frac = bal.times("0.9999").toFixed(18);
-    console.log(frac);
+    const frac = bal.times("0.999").toFixed(18);
     setAmountToPay(frac);
   }, [lamboBalance]);
 
