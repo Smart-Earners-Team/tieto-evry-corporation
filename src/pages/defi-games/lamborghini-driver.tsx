@@ -28,7 +28,10 @@ import {
   getLamboAddress,
   getLamboDriverAddress,
 } from "../../utils/addressHelpers";
-import { getTCoinContract, getLamboContract } from "../../utils/contractHelpers";
+import {
+  getTCoinContract,
+  getLamboContract,
+} from "../../utils/contractHelpers";
 import useApproveToken from "../../hooks/useApproveToken";
 import ConnectWalletButton from "../../components/Buttons/connectWalletButton";
 import SolidButton from "../../components/Buttons/SolidButton";
@@ -56,7 +59,7 @@ export default function LamboGamePage({ path }: PageProps) {
   const [wave, setWave] = useState(true);
   const letChiefWave = useCallback(() => setWave(true), []);
   const thanksChief = useCallback(() => setWave(false), []);
-  
+
   const {
     ttebWallet: { lamboBalance },
     refAddress,
@@ -156,7 +159,10 @@ export default function LamboGamePage({ path }: PageProps) {
     );
 
   const handleSelectMax = useCallback(() => {
-    setAmountToPay(lamboBalance);
+    const bal = new BigNumber(lamboBalance);
+    const frac = bal.times("0.9999").toFixed(18);
+    console.log(frac);
+    setAmountToPay(frac);
   }, [lamboBalance]);
 
   const inputHasError = new BigNumber(amountToPay).isGreaterThan(lamboBalance);

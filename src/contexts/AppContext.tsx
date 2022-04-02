@@ -110,7 +110,8 @@ export default function AppContext({
       const contract = onMainnet
         ? getLamboContract(library.getSigner())
         : getTCoinContract(library.getSigner());
-      const decimals = onMainnet ? 18 : 8;
+      // const decimals = onMainnet ? 18 : 8;
+      const decimals = 18;
 
       const lambo = await getTokenBalance(contract, account, decimals);
       setBalance(tteb);

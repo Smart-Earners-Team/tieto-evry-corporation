@@ -163,7 +163,8 @@ function LamboDriverVideo({
     Set width and height to 100% and wrap the player in a fixed aspect ratio box to get a
     responsive player: see https://css-tricks.com/aspect-ratio-boxes */
     <React.Fragment>
-      <div className="w-full bg-gray-300 relative pointer-events-none">
+      <div className="w-full h-auto transition-all duration-150 bg-gray-300 relative
+        pointer-events-none">
         <ReactPlayer
           url={supportedVideoMaps["first"]}
           className={cls("pointer-event-none", { ["hidden"]: firstCompleted })}

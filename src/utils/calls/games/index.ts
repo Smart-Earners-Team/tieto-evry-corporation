@@ -17,7 +17,6 @@ export const getIncome = async (signer: CallSignerType) => {
   const contract = getLamboDriverContract(signer);
   const { _hex } = (await contract.getMyIncome()) as ethers.BigNumber;
   const count = new BigNumber(_hex).toNumber();
-  console.log(count)
   return count;
 };
 
