@@ -37,6 +37,7 @@ import ConnectWalletButton from "../../components/Buttons/connectWalletButton";
 import SolidButton from "../../components/Buttons/SolidButton";
 import Link from "../../components/Link";
 import CopyToClipboard from "../../components/Tools/CopyToClipboard";
+import SEO from "../../components/SEO";
 
 // tCoin on testnet
 const onMainet = isMainNet();
@@ -268,6 +269,15 @@ export default function LamboGamePage({ path }: PageProps) {
 
   return (
     <Layout>
+      <SEO
+        title="Lamborghini Driver Game"
+        description={`Jake is a skilled Lamborghini Driver who transports Royals and Celebrities.
+            Now he's looking to grow his business by hiring more of his fellow lamborghini drivers!
+            Each driver Jake hires brings fresh clients and income to the table which can be sold for
+            $LAMBO. Once you hire a driver, he will be working for you and bring you daily passive income.
+            The yield can be reinvested to hire more drivers and compound your earnings or sold.
+          `}
+      />
       <RefreshContextProvider>
         <GamesNav shortName="Lamborghini Driver" tokenBalance={lamboBalance} />
         <Section className="!pt-0 !px-0 lg:!px-16 m-0 max-w-screen-xl flex justify-between items-start">

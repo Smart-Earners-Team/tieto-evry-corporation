@@ -43,7 +43,7 @@ export const addresses = {
   },
   lamboDriverGame: {
     97: "0xB2430dd5deBB2d8B376d2fAcb3e8A686E81aB1E1",
-    56: "",
+    56: "0x274824F0831D8146201Ad57D4E8fcfe6be317Fc1",
   },
   // only for testnet
   tCoin: {

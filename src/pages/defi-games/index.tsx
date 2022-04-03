@@ -40,9 +40,9 @@ export default function DefiGamesPage() {
           }
           description={`Jake is a skilled Lamborghini Driver who transports Royals and Celebrities.
             Now he's looking to grow his business by hiring more of his fellow lamborghini drivers!
-
             Each driver Jake hires brings fresh clients and income to the table which can be sold for
-            $LAMBO. Once you hire a driver, he will be working for you and bring you daily passive income. The yield can be reinvested to hire more drivers and compound your earnings or sold.
+            $LAMBO. Once you hire a driver, he will be working for you and bring you daily passive income.
+            The yield can be reinvested to hire more drivers and compound your earnings or sold.
           `}
         />
         <GameCard
