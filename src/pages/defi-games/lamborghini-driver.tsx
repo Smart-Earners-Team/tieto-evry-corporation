@@ -309,7 +309,7 @@ export default function LamboGamePage({ path }: PageProps) {
                       amountToPay.length === 0
                     }
                   >
-                    {buying ? "Please wait..." : "Buy Driver"}
+                    {buying ? "Please wait..." : "Hire Driver"}
                   </GameButton>
                   <div className="w-2/3 inline-block float-right max-w-xs">
                     <StaticImage
@@ -334,7 +334,15 @@ export default function LamboGamePage({ path }: PageProps) {
       <div className="clear-both mb-8" />
       <Section className="mb-10">
         <p>Refer friends to the game and earn more rewards.</p>
-        <CopyToClipboard title="Share Your Referral Link" content={shareUrl} />
+        <CopyToClipboard
+          title="Share Your Referral Link"
+          content={
+            account == null
+              ? "Connect your wallet to see your referral address"
+              : shareUrl
+          }
+          canCopy={account != null}
+        />
         <Link
           to="/defi-games/faq/lambo-driver-questions-and-answers"
           className="text-sky-600 underline font-medium hover:text-sky-500 transition-colors
