@@ -128,7 +128,7 @@ const questionsAndAnswers: QuestionsAndAnswers[] = [
           which will result in the decrease of the daily earnings to make it
           sustainable over time. Once the price stabilizes again we will start a
           new cycle, with the cheapest driver and with it, the value of the
-          fishermen will rise again and with it, the daily profits.
+          driver will rise again and with it, the daily profits.
         </p>
         <p>
           It is an incredibly perfect mathematical algorithm that will be

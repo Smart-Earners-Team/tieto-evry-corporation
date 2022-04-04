@@ -27,7 +27,7 @@ export const compoundIncome = async (ref: string, signer: CallSignerType) => {
 
 export const sellIncome = async (signer: CallSignerType) => {
   const contract = getLamboDriverContract(signer);
-  const tx = await contract.TakeProfitsAsLAMBO();
+  const tx = await contract.sellLamborghini();
   const receipt = await tx.wait();
   return receipt.status;
 };
