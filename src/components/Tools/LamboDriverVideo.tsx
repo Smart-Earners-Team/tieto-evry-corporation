@@ -6,6 +6,7 @@ import { MdOutlineHelp } from "react-icons/md";
 import FabIcon from "../Icons/FabIcon";
 import useToast from "../../hooks/useToast";
 import { useCopyText } from "../../hooks";
+import Link from "../Link";
 
 type VideoCountKeys = "first" | "second";
 type SupportedVideo = {
@@ -163,8 +164,10 @@ function LamboDriverVideo({
     Set width and height to 100% and wrap the player in a fixed aspect ratio box to get a
     responsive player: see https://css-tricks.com/aspect-ratio-boxes */
     <React.Fragment>
-      <div className="w-full h-auto transition-all duration-150 bg-gray-300 relative
-        pointer-events-none">
+      <div
+        className="w-full h-auto transition-all duration-150 bg-gray-300 relative
+        pointer-events-none"
+      >
         <ReactPlayer
           url={supportedVideoMaps["first"]}
           className={cls("pointer-event-none", { ["hidden"]: firstCompleted })}
@@ -174,6 +177,7 @@ function LamboDriverVideo({
           ref={(player) => (firstVideoRef.current = player)}
           pip={false}
           muted={muted}
+          preload="auto"
           onPlay={checkCanStart}
         />
         <ReactPlayer
@@ -187,25 +191,37 @@ function LamboDriverVideo({
           pip={false}
           loop
           muted={muted}
+          preload="auto"
           onPlay={checkCanStart}
         />
       </div>
-      <div className="bg-white shadow p-2 flex items-center justify-end w-full">
-        <FabIcon onClick={handleShare} title="Share">
-          <GiShare className="text-slate-500" />
-        </FabIcon>
-        <FabIcon onClick={letChiefWave} className="lg:hidden" title="Help">
-          <MdOutlineHelp className="text-slate-500" />
-        </FabIcon>
-        {!muted ? (
-          <FabIcon onClick={toggleMute} title="Unmute Sound">
-            <GiSpeaker className="text-slate-500" />
+      <div className="bg-white shadow p-2 flex items-center justify-between w-full">
+        <Link
+          className="transition-all duration-300 bg-yellow-500 rounded-full ring-yellow-700 ring-2 px-2 py-1
+          text-yellow-700 font-bold text-sm mx-2"
+          to="https://pancakeswap.finance/swap?outputCurrency=0x1A82C2A3fD8BE1793ed8648F2df6B2B415EA81f8"
+          rel="nofollow noopener"
+          target="_blank"
+        >
+          Buy $LAMBO
+        </Link>
+        <div className="inline-block">
+          <FabIcon onClick={handleShare} title="Share">
+            <GiShare className="text-slate-500" />
           </FabIcon>
-        ) : (
-          <FabIcon onClick={toggleMute} title="Mute Sound">
-            <GiSpeakerOff className="text-slate-500" />
+          <FabIcon onClick={letChiefWave} className="lg:hidden" title="Help">
+            <MdOutlineHelp className="text-slate-500" />
           </FabIcon>
-        )}
+          {!muted ? (
+            <FabIcon onClick={toggleMute} title="Unmute Sound">
+              <GiSpeaker className="text-slate-500" />
+            </FabIcon>
+          ) : (
+            <FabIcon onClick={toggleMute} title="Mute Sound">
+              <GiSpeakerOff className="text-slate-500" />
+            </FabIcon>
+          )}
+        </div>
       </div>
     </React.Fragment>
   );

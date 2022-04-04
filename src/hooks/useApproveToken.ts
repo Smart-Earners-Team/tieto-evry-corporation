@@ -13,7 +13,7 @@ const useApproveToken = (spenderContract: Contract, tokenAddress: string) => {
       const receipt = await tx.wait();
       return receipt.status;
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       return;
     }
   }, [tokenAddress, spenderContract, callWithGasPrice]);
