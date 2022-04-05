@@ -25,12 +25,13 @@ export const compoundIncome = async (ref: string, signer: CallSignerType) => {
   await contract.reInvestIncome(ref);
 };
 
-export const sellIncome = async (signer: CallSignerType) => {
+export const sellLamborghini = async (signer: CallSignerType) => {
   const contract = getLamboDriverContract(signer);
   console.log(contract);
-  const tx = await contract["sellLamborghini()"]();
-  const receipt = await tx.wait();
-  return receipt.status;
+  await contract["sellLamborghini()"]();
+  // const tx = await contract["sellLamborghini()"]();
+  // const receipt = await tx.wait();
+  // return receipt.status;
 };
 
 export const buyDriver = async (

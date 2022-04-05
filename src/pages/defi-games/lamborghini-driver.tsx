@@ -13,7 +13,7 @@ import {
   compoundIncome,
   getDriverCounts,
   getIncome,
-  sellIncome,
+  sellLamborghini,
 } from "../../utils/calls/games";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import { RefreshContextProvider } from "../../contexts/RefreshContext";
@@ -115,7 +115,7 @@ export default function LamboGamePage({ path }: PageProps) {
     if (library) {
       setSelling(true);
       try {
-        await sellIncome(library.getSigner());
+        await sellLamborghini(library.getSigner());
         toastSuccess("Success", "Your income has been sold to lambo");
         triggerFetchTokens();
       } catch (err) {
