@@ -80,7 +80,7 @@ export default function LamboGamePage({ path }: PageProps) {
         // get drivers count
         const driverCount = await getDriverCounts(library.getSigner());
         // get Income
-        const income = await getIncome(library.getSigner());
+        const income = await getIncome(account, library.getSigner());
         setDrivers(driverCount);
         setIncome(income);
       } else {

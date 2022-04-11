@@ -13,9 +13,9 @@ export const getDriverCounts = async (signer: CallSignerType) => {
   return count;
 };
 
-export const getIncome = async (signer: CallSignerType) => {
+export const getIncome = async (address: string, signer: CallSignerType) => {
   const contract = getLamboDriverContract(signer);
-  const { _hex } = (await contract.getMyIncome()) as ethers.BigNumber;
+  const { _hex } = (await contract.getMyIncome(address)) as ethers.BigNumber;
   const count = new BigNumber(_hex).toNumber();
   return count;
 };
@@ -27,11 +27,9 @@ export const compoundIncome = async (ref: string, signer: CallSignerType) => {
 
 export const sellLamborghini = async (signer: CallSignerType) => {
   const contract = getLamboDriverContract(signer);
-  console.log(contract);
-  await contract["sellLamborghini()"]();
-  // const tx = await contract["sellLamborghini()"]();
-  // const receipt = await tx.wait();
-  // return receipt.status;
+  const tx = await contract.sellLamborghini();
+  const receipt = await tx.wait();
+  return receipt.status;
 };
 
 export const buyDriver = async (
