@@ -118,6 +118,7 @@ const PageContent = () => {
     // LAMBO/BNB
     if (lamboBnb) {
       const { tokenPriceVsQuote } = await fetchTokenPrices(lamboBnb);
+      console.log(lamboBnb)
       lamboPriceBusd = bnbPriceBusd.times(tokenPriceVsQuote);
     }
 

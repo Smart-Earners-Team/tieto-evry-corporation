@@ -78,7 +78,7 @@ export const lpTokenPairs: LpTokenPair[] = [
     lpSymbol: "LAMBO-BNB LP",
     lpAddresses: {
       97: "",
-      56: "0xed06A99F57e86c200f496923db2ceABa5761F88C",
+      56: "0x273e19b8d61eea19018A66D68c2522Cb3fbD51FB",
     },
     token: tokens.lambo,
     quoteToken: tokens.bnb,
