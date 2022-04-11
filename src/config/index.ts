@@ -16,7 +16,7 @@ export const BASE_BSC_SCAN_URL = BASE_BSC_SCAN_URLS[ChainId.MAINNET];
 export const tokens = {
   lambo: {
     97: "",
-    56: "0x1A82C2A3fD8BE1793ed8648F2df6B2B415EA81f8",
+    56: "0xd83a832AD7202612FA53E0317DF685A5Df7cA8b8",
   },
   tteb: {
     97: "",
@@ -43,7 +43,7 @@ export const addresses = {
   },
   lamboDriverGame: {
     97: "0xB2430dd5deBB2d8B376d2fAcb3e8A686E81aB1E1",
-    56: "0x274824F0831D8146201Ad57D4E8fcfe6be317Fc1",
+    56: "0x639F645B35D5C2f9B2B354819Be6050707B7Bb94",
   },
   // only for testnet
   tCoin: {
