@@ -118,8 +118,11 @@ const PageContent = () => {
     // LAMBO/BNB
     if (lamboBnb) {
       const { tokenPriceVsQuote } = await fetchTokenPrices(lamboBnb);
-      console.log(lamboBnb)
-      lamboPriceBusd = bnbPriceBusd.times(tokenPriceVsQuote);
+      if(tokenPriceVsQuote === "NaN") {
+        lamboPriceBusd = bnbPriceBusd.times(0);
+      } else {
+        lamboPriceBusd = bnbPriceBusd.times(tokenPriceVsQuote);
+      }
     }
 
     setTokenPrices({
