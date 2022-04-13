@@ -13,51 +13,51 @@ export default function LamboRewardsCalculator({
 }: {
   closeHandler: () => void;
 }) {
-  const [deposite, setDeposite] = useState("");
+  const [deposit, setDeposit] = useState("");
   const [onPresentTableModal] = useModal(
     <RewardsTableModal
       closeHandler={closeHandler}
-      initialDeposite={new BigNumber(deposite)}
+      initialDeposit={new BigNumber(deposit)}
     />,
     false,
     false
   );
 
-  const handleDepositeChange: React.FormEventHandler<HTMLInputElement> =
+  const handleDepositChange: React.FormEventHandler<HTMLInputElement> =
     useCallback(async (e) => {
       const val = e.currentTarget.value.replace(/,/g, ".");
       const pattern = /^[0-9]*[.,]?[0-9]*$/g;
       if (!pattern.test(val)) return;
-      setDeposite(val);
+      setDeposit(val);
     }, []);
 
   const handleCalculate = useMemo(() => {
-    const dep = new BigNumber(deposite);
+    const dep = new BigNumber(deposit);
     if (!dep.isNaN() && dep.isFinite()) {
       return onPresentTableModal;
     } else {
       return () => {};
     }
-  }, [deposite]);
+  }, [deposit]);
 
   return (
-    <div className="bg-white w-11/12 max-w-xs rounded-xl">
+    <div className="bg-white w-11/12 max-w-xs rounded-t-xl">
       <ModalHeader closeHandler={closeHandler} />
       <div className="p-4">
         <div className="mb-5">
           <div className="font-medium">How to Use The Calculator</div>
-          <ol className="block list-decimal list-inside text-sm">
-            <li>Enter your initial deposite</li>
+          <ol className="block list-decimal list-inside text-sm text-gray-600">
+            <li>Enter your initial deposit</li>
             <li>Click on Calculate</li>
           </ol>
         </div>
         <TextInput
           error={false}
           onSelectMax={() => {}}
-          onChangeHandler={handleDepositeChange}
-          value={deposite}
+          onChangeHandler={handleDepositChange}
+          value={deposit}
           name="Amount"
-          label="Initial Deposite to Invest"
+          label="Initial Deposit to Invest"
           symbol="$"
           isDisabled={false}
         />
@@ -96,7 +96,7 @@ const TextInput = ({
 }: TextInputProps) => {
   return (
     <div className="w-full my-3">
-      <label htmlFor={name} className="block text-sm mb-1">
+      <label htmlFor={name} className="block text-sm mb-1 text-gray-600">
         {label}
       </label>
       <div className="relative w-full">
@@ -106,7 +106,7 @@ const TextInput = ({
             "placeholder-gray-500 outline-none border-none ring-1 ring-transparent text-sm",
             "focus:ring-yellow-500 focus-within:ring-yellow-500 transition-all duration-200",
             "text-gray-600 pl-4 pr-3 py-2 bg-gray-100 disabled:opacity-70 disabled:cursor-not-allowed",
-            "block w-full",
+            "block w-full border",
             {
               ["focus:ring-red-500 focus-within:ring-red-500 text-red-400 bg-red-50"]:
                 error,
