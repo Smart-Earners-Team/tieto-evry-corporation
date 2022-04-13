@@ -121,18 +121,19 @@ export default function EcosystemPage() {
           unlimited earning potential.
         </p>
         <p>
-          LAMBO has a 15% tax split as follows: <br />
+          LAMBO has a 10% buy tax and an extra 15% sell tax split as follows:
+          <br />
         </p>
         <ul className="list-inside list-disc">
           <li>
-            <b>9% Liquidity</b>
+            <b>5% Liquidity</b>
           </li>
           <li>
             <b>3% Marketing</b>
           </li>
           <li>
             <b>
-              3% TTEB buybacks which are automatically distributed to all LAMBO
+              2% TTEB buybacks which are automatically distributed to all LAMBO
               token holders
             </b>
           </li>

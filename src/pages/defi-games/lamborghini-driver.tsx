@@ -293,10 +293,12 @@ export default function LamboGamePage({ path }: PageProps) {
                 <MetricChip
                   text="Number of Drivers"
                   value={drivers.toFixed()}
+                  unit=""
                   className="text-gray-600"
                 />
                 <MetricChip
                   text="Income"
+                  unit="LAMBO"
                   value={income.toFixed()}
                   className="text-amber-500"
                 />
@@ -369,13 +371,14 @@ export default function LamboGamePage({ path }: PageProps) {
 interface MetricChipProps {
   text: string;
   value: string;
+  unit: string;
   className?: string;
 }
-const MetricChip = ({ text, value, className }: MetricChipProps) => {
+const MetricChip = ({ text, value, unit, className }: MetricChipProps) => {
   return (
     <div className={cls("font-extrabold font-mono py-2 text-xl", className)}>
       {text}
-      <div className="font-bold mt-0">{value}</div>
+      <div className="font-bold mt-0">{value}<b>{unit}</b></div>
     </div>
   );
 };
@@ -396,7 +399,7 @@ const TextInput = ({
   isDisabled,
 }: TextInputProps) => {
   return (
-    <div>
+    <div className="flex items-center">
       <input
         type="text"
         className={cls(
@@ -415,7 +418,8 @@ const TextInput = ({
       />
       <SolidButton
         onClick={onSelectMax}
-        className="ml-2 disabled:!opacity-40 disabled:cursor-not-allowed border-none !shadow-none"
+        className="ml-2 disabled:!opacity-40 disabled:cursor-not-allowed border-none !shadow-none text-sm
+          !p-1"
         disabled={isDisabled}
       >
         Max

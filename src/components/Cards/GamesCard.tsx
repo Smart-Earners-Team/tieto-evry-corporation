@@ -26,7 +26,7 @@ export default function GameCard({
       <div
         className={cls(
           `shadow-md w-full bg-yellow-50/40 max-w-xs sm:max-w-sm pb-3 hover:bg-yellow-50/10
-          cursor-pointer transition-opacity duration-200 group text-center my-3`,
+          cursor-pointer transition-opacity duration-200 group text-center my-3 rounded-3xl`,
           { "cursor-auto hover:bg-yellow-50/40": !avaliable },
           className
         )}
