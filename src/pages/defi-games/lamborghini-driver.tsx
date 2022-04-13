@@ -39,7 +39,7 @@ import Link from "../../components/Link";
 import CopyToClipboard from "../../components/Tools/CopyToClipboard";
 import SEO from "../../components/SEO";
 import useModal from "../../components/Modal/useModal";
-import LamboRewardsCalculator from "../../components/Widgets/LamboRewardsCalculator";
+import LamboRewardsCalculator from "../../components/Widgets/LamboRewards/LamboRewardsCalculator";
 import useModalContext from "../../hooks/useModalContext";
 
 // tCoin on testnet
@@ -390,7 +390,7 @@ const MetricChip = ({ text, value, unit, className }: MetricChipProps) => {
       {text}
       <div className="font-bold mt-0">
         {value}
-        <b>{unit}</b>
+        <b className="ml-2">{unit}</b>
       </div>
     </div>
   );
