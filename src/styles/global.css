@@ -3,9 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* The font for games */
-@import url('https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@300;400;500;600;700;800;900&display=swap');
-
 @layer base {
   body {
     @apply font-sans h-screen text-gray-900 text-lg lg:text-xl;

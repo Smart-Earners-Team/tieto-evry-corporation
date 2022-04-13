@@ -2,7 +2,7 @@ const colors = require("tailwindcss/colors");
 
 module.exports = {
   mode: "jit",
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx,css}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
@@ -20,9 +20,6 @@ module.exports = {
           800: "#4CB804",
           900: "#45A704",
         },
-      },
-      fontFamily: {
-        sansita: ['"Sansita Swashed"', "cursive"],
       },
     },
   },

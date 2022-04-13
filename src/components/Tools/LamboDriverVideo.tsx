@@ -7,6 +7,7 @@ import FabIcon from "../Icons/FabIcon";
 import useToast from "../../hooks/useToast";
 import { useCopyText } from "../../hooks";
 import Link from "../Link";
+import { AiOutlineCalculator } from "react-icons/ai";
 
 type VideoCountKeys = "first" | "second";
 type SupportedVideo = {
@@ -20,6 +21,7 @@ interface LamboDriverVideoProps {
   letChiefWave: () => void;
   shareLink: string;
   canStartEngine: () => boolean;
+  openCalculator: () => void;
 }
 
 const prefix =
@@ -47,6 +49,7 @@ function LamboDriverVideo({
   letChiefWave,
   shareLink,
   canStartEngine,
+  openCalculator
 }: LamboDriverVideoProps) {
   // state to track if the first video has finished playing
   const [firstCompleted, setfirstCompleted] = useState(false);
@@ -206,6 +209,9 @@ function LamboDriverVideo({
           Buy $LAMBO
         </Link>
         <div className="inline-block">
+          <FabIcon onClick={openCalculator} title="Rewards Calculator">
+            <AiOutlineCalculator className="text-slate-500" />
+          </FabIcon>
           <FabIcon onClick={handleShare} title="Share">
             <GiShare className="text-slate-500" />
           </FabIcon>

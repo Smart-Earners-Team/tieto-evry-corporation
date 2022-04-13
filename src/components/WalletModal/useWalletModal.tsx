@@ -2,14 +2,14 @@ import React from "react";
 import useModal from "../Modal/useModal";
 import { Login } from "./types";
 import ConnectModal from "./ConnectModal";
-import useWalletContext from "../../hooks/useWalletContext";
+import useModalContext from "../../hooks/useModalContext";
 
 interface ReturnType {
   onPresentConnectModal: () => void;
 }
 
 const useWalletModal = (login: Login, logout: () => void): ReturnType => {
-  const { onDismiss } = useWalletContext();
+  const { onDismiss } = useModalContext();
 
   const [onPresentConnectModal] = useModal(
     <ConnectModal login={login} logout={logout} onDismiss={onDismiss} />

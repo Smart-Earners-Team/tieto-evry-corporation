@@ -38,6 +38,9 @@ import SolidButton from "../../components/Buttons/SolidButton";
 import Link from "../../components/Link";
 import CopyToClipboard from "../../components/Tools/CopyToClipboard";
 import SEO from "../../components/SEO";
+import useModal from "../../components/Modal/useModal";
+import LamboRewardsCalculator from "../../components/Widgets/LamboRewardsCalculator";
+import useModalContext from "../../hooks/useModalContext";
 
 // tCoin on testnet
 const onMainet = isMainNet();
@@ -71,6 +74,12 @@ export default function LamboGamePage({ path }: PageProps) {
   const { onApprove } = useApproveToken(
     approveTokenContract(library?.getSigner()),
     getLamboDriverAddress()
+  );
+
+  // Calculator Modal
+  const { onDismiss } = useModalContext();
+  const [onPresentCalculator] = useModal(
+    <LamboRewardsCalculator closeHandler={onDismiss} />
   );
 
   // Read users functions here
@@ -287,6 +296,7 @@ export default function LamboGamePage({ path }: PageProps) {
               letChiefWave={letChiefWave}
               shareLink={shareUrl}
               canStartEngine={canStart}
+              openCalculator={onPresentCalculator}
             />
             <div className="flex flex-col relative w-full">
               <div className="flex justify-between items-center px-5 space-x-3">
@@ -378,7 +388,10 @@ const MetricChip = ({ text, value, unit, className }: MetricChipProps) => {
   return (
     <div className={cls("font-extrabold font-mono py-2 text-xl", className)}>
       {text}
-      <div className="font-bold mt-0">{value}<b>{unit}</b></div>
+      <div className="font-bold mt-0">
+        {value}
+        <b>{unit}</b>
+      </div>
     </div>
   );
 };
