@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
 import cls from "classnames";
-import SolidButton from "../../Buttons/SolidButton";
 import useModal from "../../Modal/useModal";
 import RewardsTableModal from "./RewardsTableModal";
 import GameButton from "../../Buttons/GameButton";

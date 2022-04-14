@@ -289,7 +289,7 @@ export default function LamboGamePage({ path }: PageProps) {
       />
       <RefreshContextProvider>
         <GamesNav shortName="Lamborghini Driver" tokenBalance={lamboBalance} />
-        <Section className="!pt-0 !px-0 lg:!px-16 m-0 max-w-screen-xl flex justify-between items-start">
+        <Section className="!pt-0 !px-0 lg:!px-16 m-0 max-w-screen-xl flex justify-center">
           <ChiefDriverWave visible={wave} closeHandler={thanksChief} />
           <div className="w-full lg:w-2/3 lg:inline-block lg:float-right lg:max-w-2xl">
             <LamboDriverVideo
@@ -386,7 +386,7 @@ interface MetricChipProps {
 }
 const MetricChip = ({ text, value, unit, className }: MetricChipProps) => {
   return (
-    <div className={cls("font-medium font-mono py-2 text-base", className)}>
+    <div className={cls("font-medium py-2 text-base", className)}>
       {text}
       <div className="font-bold mt-0">
         {value}
@@ -447,15 +447,15 @@ interface ChiefDriverProps {
 }
 const ChiefDriverWave = ({ visible, closeHandler }: ChiefDriverProps) => {
   const waveClass = "visible";
-  const byeClass = "invisible w-0 h-0 lg:h-auto";
+  const byeClass = "invisible w-0 h-0";
   useEffect(() => {
     if (visible) {
-      document.body.classList.add("overflow-hidden", "lg:overflow-auto");
+      document.body.classList.add("overflow-hidden");
     } else {
-      document.body.classList.remove("overflow-hidden", "lg:overflow-auto");
+      document.body.classList.remove("overflow-hidden");
     }
     return () =>
-      document.body.classList.remove("overflow-hidden", "lg:overflow-auto");
+      document.body.classList.remove("overflow-hidden");
   }, [visible]);
 
   return (
@@ -463,19 +463,19 @@ const ChiefDriverWave = ({ visible, closeHandler }: ChiefDriverProps) => {
       <div
         className={cls(
           "fixed max-w-2xl mx-auto inset-3 bg-white z-50 transition-all duration-75 shadow-lg",
-          "border lg:static lg:z-auto lg:visible lg:mx-0 lg:shadow-md lg:w-1/3 lg:inline-block overflow-y-auto",
+          "border overflow-y-auto",
           {
             [waveClass]: visible,
             [byeClass]: !visible,
           }
         )}
       >
-        <div className={cls("p-6 lg:block", { ["hidden"]: !visible })}>
+        <div className={cls("p-6", { ["hidden"]: !visible })}>
           <div className="flex justify-between items-center">
             <h1 className="text-slate-800 lg:text-3xl">How to get started?</h1>
             <FabIcon
               onClick={closeHandler}
-              className="!text-yellow-700 cursor-pointer shrink-0 lg:hidden"
+              className="!text-yellow-700 cursor-pointer shrink-0"
             >
               <IoMdClose className="w-8 h-8" />
             </FabIcon>
@@ -515,7 +515,7 @@ const ChiefDriverWave = ({ visible, closeHandler }: ChiefDriverProps) => {
       </div>
       <div
         className={cls(
-          "fixed inset-0 bg-black bg-opacity-20 cursor-pointer z-40 lg:hidden",
+          "fixed inset-0 bg-black bg-opacity-20 cursor-pointer z-40",
           {
             hidden: !visible,
             block: visible,

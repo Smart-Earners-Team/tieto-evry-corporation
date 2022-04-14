@@ -215,7 +215,7 @@ function LamboDriverVideo({
           <FabIcon onClick={handleShare} title="Share">
             <GiShare className="text-slate-500" />
           </FabIcon>
-          <FabIcon onClick={letChiefWave} className="lg:hidden" title="Help">
+          <FabIcon onClick={letChiefWave} title="Help">
             <MdOutlineHelp className="text-slate-500" />
           </FabIcon>
           {!muted ? (

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import ModalFooter from "./ModalFooter";
 import ModalHeader from "./ModalHeader";
 import { useTable, usePagination } from "react-table";
