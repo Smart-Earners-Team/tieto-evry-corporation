@@ -41,9 +41,9 @@ export default function LamboRewardsCalculator({
   }, [deposit]);
 
   return (
-    <div className="bg-white w-11/12 max-w-xs rounded-t-xl">
+    <div className="bg-white w-11/12 max-w-sm rounded-xl">
       <ModalHeader closeHandler={closeHandler} />
-      <div className="p-4">
+      <div className="px-4">
         <div className="mb-5">
           <div className="font-medium">How to Use The Calculator</div>
           <ol className="block list-decimal list-inside text-sm text-gray-600">
@@ -56,13 +56,12 @@ export default function LamboRewardsCalculator({
           onSelectMax={() => {}}
           onChangeHandler={handleDepositChange}
           value={deposit}
-          name="Amount"
+          name="0.00"
           label="Initial Deposit to Invest"
           symbol="$"
           isDisabled={false}
         />
         <p className="my-3 text-sm">You get 3% Daily ROI</p>
-
         <div>
           <GameButton onClick={handleCalculate} className="m-0 w-full block">
             Calculate
@@ -119,7 +118,7 @@ const TextInput = ({
           id={name}
         />
         {symbol !== undefined && (
-          <span className="absolute left-1 top-1/2 -translate-y-1/2 text-base text-gray-500">
+          <span className="absolute left-1 top-1/2 -translate-y-1/2 text-base text-gray-500 font-bold">
             {symbol}
           </span>
         )}
@@ -127,26 +126,3 @@ const TextInput = ({
     </div>
   );
 };
-
-interface TimeFrameButtonProps {
-  time: string;
-  clickHandler: () => void;
-  active: boolean;
-}
-
-const TimeFrameButton = ({
-  time,
-  clickHandler,
-  active: selected,
-}: TimeFrameButtonProps) => (
-  <SolidButton
-    active={selected}
-    title={time}
-    onClick={clickHandler}
-    className={cls("text-sm !p-1", {
-      "!bg-yellow-600 !border-yellow-800": selected,
-    })}
-  >
-    {time}
-  </SolidButton>
-);

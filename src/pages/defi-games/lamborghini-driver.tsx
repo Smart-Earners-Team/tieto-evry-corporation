@@ -313,7 +313,7 @@ export default function LamboGamePage({ path }: PageProps) {
                   className="text-amber-500"
                 />
               </div>
-              <div className="m-2 p-2 shadow-md mt-5 mb-8 space-y-4">
+              <div className="m-2 p-5 shadow-md mt-5 mb-8 space-y-4 rounded-3xl">
                 <TextInput
                   value={amountToPay}
                   onChangeHandler={handleInputChange}
@@ -331,7 +331,7 @@ export default function LamboGamePage({ path }: PageProps) {
                       amountToPay.length === 0
                     }
                   >
-                    {buying ? "Please wait..." : "Hire Driver"}
+                    {buying ? "processing..." : "Hire Driver"}
                   </GameButton>
                   <div className="w-2/3 inline-block float-right max-w-xs">
                     <StaticImage
@@ -386,7 +386,7 @@ interface MetricChipProps {
 }
 const MetricChip = ({ text, value, unit, className }: MetricChipProps) => {
   return (
-    <div className={cls("font-extrabold font-mono py-2 text-xl", className)}>
+    <div className={cls("font-medium font-mono py-2 text-base", className)}>
       {text}
       <div className="font-bold mt-0">
         {value}
