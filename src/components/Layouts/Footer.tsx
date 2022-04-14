@@ -71,7 +71,7 @@ export default function Footer(_props: FooterProps) {
                   <p className="mt-2 text-center lg:text-left text-base max-w-sm">
                     {description}
                   </p>
-                  <div className="mt-3 flex items-start justify-center lg:justify-end">
+                  <div className="mt-3 flex items-start justify-center lg:justify-start space-x-4">
                     {socials.map((social) => (
                       <a
                         key={social.name}
@@ -125,7 +125,7 @@ export default function Footer(_props: FooterProps) {
                     </p>
                     <p>
                       <label>
-                        <input type="checkbox" name="gdpr" value="1" required />{" "}
+                        <input type="checkbox" name="gdpr" defaultValue="1" required />{" "}
                         I agree to receive email updates and promotions.
                       </label>
                     </p>
@@ -138,7 +138,7 @@ export default function Footer(_props: FooterProps) {
                         type="text"
                         name="a_password"
                         tabIndex={-1}
-                        value=""
+                        defaultValue=""
                         autoComplete="off"
                       />
                     </div>
@@ -162,7 +162,7 @@ export default function Footer(_props: FooterProps) {
 const getSocialIcon = (name: SocialIconTypes) => {
   let svgIcon = <></>;
   const iconClass =
-    "w-6 h-6 text-black hover:text-blue-500 inline-block mr-5 lg:mr-0 lg:ml-5";
+    "w-6 h-6 text-black hover:text-blue-500 inline-block";
   switch (name) {
     case "twitter":
       svgIcon = <FaTwitter className={iconClass} title={name} />;

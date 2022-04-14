@@ -65,7 +65,7 @@ const questionsAndAnswers: QuestionsAndAnswers[] = [
   {
     question: "How the system works",
     answer: (
-      <div className="space-y-5">
+      <div className="space-y-6">
         <p>
           Let’s say you hire 6000 drivers at 1000 LAMBO. If the price stays the
           same, you would earn 3% that day.
@@ -143,7 +143,7 @@ const questionsAndAnswers: QuestionsAndAnswers[] = [
   {
     question: "Sustainability",
     answer: (
-      <div className="space-y-5">
+      <div className="space-y-6">
         <p>
           The LamborghiniDrivers smart contract is rug free and immutable,
           meaning there are no functions that devs can use to drain or change
@@ -164,15 +164,13 @@ export default function LamborghiniDriverFaqPage() {
   return (
     <Layout>
       <SEO
-        title="Frequently Asked Questions"
+        title="Questions and Answers About The Lamborghini Driver"
         description="A list of questions and answers relating to TietoEVRY Corporation,
          the TietoEVRY token, Lamborghini token and smart contract security and audits."
       />
       <Section>
         <header>
-          <Heading>
-            Frequently Asked Questions About the Lamborghini Driver
-          </Heading>
+          <Heading>Questions and Answers About The Lamborghini Driver</Heading>
         </header>
         <FaqAccordion
           faqs={questionsAndAnswers}
