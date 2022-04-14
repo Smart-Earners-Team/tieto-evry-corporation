@@ -2,13 +2,11 @@ import React from "react";
 import cls from "classnames";
 
 interface FabIconProps extends React.ComponentProps<"div"> {
-  label?: string;
   disabled?: boolean;
 }
 export default function FabIcon({
   className,
   children,
-  label,
   disabled,
   ...props
 }: FabIconProps) {
@@ -22,7 +20,6 @@ export default function FabIcon({
         {"cursor-not-allowed opacity-40": disabled}
       )}
       {...props}
-      title={label}
     >
       {children}
     </div>

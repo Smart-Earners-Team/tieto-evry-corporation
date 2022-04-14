@@ -63,7 +63,7 @@ const questionsAndAnswers: QuestionsAndAnswers[] = [
   {
     question: "How long does it take for an audit to get done?",
     answer: `Depending on the level of workload we are experiencing at the time,
-      it usually gets done within 48 hours. There are precipitate options if you wold
+      it usually gets done within 48 hours. There are precipitate options if you would
       like to get it sooner than that.`,
   },
   {

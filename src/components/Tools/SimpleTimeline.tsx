@@ -24,7 +24,7 @@ const roadMap = [
     label: "Q1 - 2022",
     content: [
       { text: "Smart Contract Audits", checked: true },
-      { text: "Release first GameFi application" },
+      { text: "Release first GameFi application", checked: true  },
       { text: "Coinmarketcap listing" },
       { text: "CoinGecko listing" },
     ],
