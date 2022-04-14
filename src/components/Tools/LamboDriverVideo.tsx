@@ -155,7 +155,7 @@ function LamboDriverVideo({
     if (copied) {
       toastSuccess(
         "Link Copied to Clipboard",
-        "You can referrer friends to the game and earn more rewards by sharing your link with them."
+        "You can earn more rewards by referring friends to the game by sharing your link with them."
       );
     } else {
       toastError("Operation Failed", "Could not copy text to clipboard");

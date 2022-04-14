@@ -125,7 +125,7 @@ export default function LamboGamePage({ path }: PageProps) {
       setSelling(true);
       try {
         await sellLamborghini(library.getSigner());
-        toastSuccess("Success", "Your income has been sold to lambo");
+        toastSuccess("Success", "Lambo has purchased your earnings.");
         triggerFetchTokens();
       } catch (err) {
         // console.error(err);
@@ -144,7 +144,7 @@ export default function LamboGamePage({ path }: PageProps) {
       setCompounding(true);
       try {
         await compoundIncome(refAddress, library.getSigner());
-        toastSuccess("Success", "Your income has been Compounded");
+        toastSuccess("Success", "Your earnings have been compounded");
       } catch (err) {
         // console.error(err);
         toastError(
@@ -190,8 +190,8 @@ export default function LamboGamePage({ path }: PageProps) {
         await buyDriver(amountToPay, library.getSigner(), refAddress);
         toastSuccess(
           "Congratulations!",
-          `You have successfully bought some drivers,
-          we know your customers will enjoy the ride while you earn along the way.`
+          `You've successfully purchased some drivers, 
+          and we're confident that your customers will enjoy the ride as you earn money.`
         );
         setAmountToPay("");
         triggerFetchTokens();
@@ -288,7 +288,10 @@ export default function LamboGamePage({ path }: PageProps) {
           `}
       />
       <RefreshContextProvider>
-        <GamesNav shortName="Lamborghini Driver" tokenBalance={lamboBalance} />
+        <GamesNav
+          shortName="The Lamborghini Driver"
+          tokenBalance={lamboBalance}
+        />
         <Section className="!pt-0 !px-0 lg:!px-16 m-0 max-w-screen-xl flex justify-center">
           <ChiefDriverWave visible={wave} closeHandler={thanksChief} />
           <div className="w-full lg:w-2/3 lg:inline-block lg:float-right lg:max-w-2xl">
@@ -355,7 +358,7 @@ export default function LamboGamePage({ path }: PageProps) {
       </RefreshContextProvider>
       <div className="clear-both mb-8" />
       <Section className="mb-10">
-        <p>Refer friends to the game and earn more rewards.</p>
+        <p>Earn more awards by referring friends to the game.</p>
         <CopyToClipboard
           title="Share Your Referral Link"
           content={
@@ -370,7 +373,8 @@ export default function LamboGamePage({ path }: PageProps) {
           className="text-sky-600 underline font-medium hover:text-sky-500 transition-colors
             duration-200"
         >
-          Read some frequently asked questions about the Lamborghini Driver
+          Read the answers to some of the most frequently asked questions
+          regarding The Lamborghini Driver
         </Link>
         .
       </Section>
@@ -431,8 +435,8 @@ const TextInput = ({
       />
       <SolidButton
         onClick={onSelectMax}
-        className="ml-2 disabled:!opacity-40 disabled:cursor-not-allowed border-none !shadow-none text-sm
-          !p-1"
+        className="ml-2 disabled:!opacity-40 disabled:cursor-not-allowed border-none !shadow-none
+          text-sm !p-1"
         disabled={isDisabled}
       >
         Max
@@ -454,8 +458,7 @@ const ChiefDriverWave = ({ visible, closeHandler }: ChiefDriverProps) => {
     } else {
       document.body.classList.remove("overflow-hidden");
     }
-    return () =>
-      document.body.classList.remove("overflow-hidden");
+    return () => document.body.classList.remove("overflow-hidden");
   }, [visible]);
 
   return (
