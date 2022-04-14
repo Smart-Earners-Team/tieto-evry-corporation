@@ -159,7 +159,7 @@ const IndexPage = () => {
                 <SolidButton>Buy $TTEB</SolidButton>
               </Link>
               <Link
-                to="https://pancakeswap.finance/swap?outputCurrency=0x1A82C2A3fD8BE1793ed8648F2df6B2B415EA81f8"
+                to="https://pancakeswap.finance/swap?outputCurrency=0xd83a832AD7202612FA53E0317DF685A5Df7cA8b8"
                 rel="nofollow noopener"
                 target="_blank"
               >

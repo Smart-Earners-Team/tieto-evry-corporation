@@ -105,7 +105,7 @@ export default function EcosystemPage() {
         <p className="mb-5">
           One of the hottest things in the cryptocurrency world right now is
           GameFi, the combination of games and finance. The TietoEVRY team built
-          to the Lamborghini token to support this blockchain games with
+          the Lamborghini token to support blockchain games with
           economic incentives.
         </p>
         <div className="w-full mx-auto bg-gray-200 mb-5 flex justify-center items-center p-4">
