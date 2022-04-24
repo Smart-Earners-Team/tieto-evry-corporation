@@ -5,7 +5,6 @@ import SEO from "../components/SEO";
 import TokenBalanceCard from "../components/Cards/TokenBalanceCard";
 import SolidButton from "../components/Buttons/SolidButton";
 import ConnectWalletButton from "../components/Buttons/connectWalletButton";
-import { RefreshContextProvider } from "../contexts/RefreshContext";
 import { useAppContext } from "../hooks/useAppContext";
 import { StaticImage } from "gatsby-plugin-image";
 import {
@@ -38,9 +37,7 @@ export default function ContactPage() {
             Dapp anytime!
           </p>
         </header>
-        <RefreshContextProvider>
-          <PageContent />
-        </RefreshContextProvider>
+        <PageContent />
       </Section>
     </Layout>
   );
@@ -118,7 +115,7 @@ const PageContent = () => {
     // LAMBO/BNB
     if (lamboBnb) {
       const { tokenPriceVsQuote } = await fetchTokenPrices(lamboBnb);
-      if(tokenPriceVsQuote === "NaN") {
+      if (tokenPriceVsQuote === "NaN") {
         lamboPriceBusd = bnbPriceBusd.times(0);
       } else {
         lamboPriceBusd = bnbPriceBusd.times(tokenPriceVsQuote);

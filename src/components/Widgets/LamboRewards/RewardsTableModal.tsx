@@ -355,7 +355,7 @@ const FilterChip = (props: {
           {props.view === "all"
             ? "Everyday benefits for playing"
             : props.view === "future"
-            ? "Rewards are viewed over a 30-day period with an extimated future price of LAMBO"
+            ? "Rewards are viewed over a 30-day period with an estimated future price of LAMBO"
             : "Rewards are viewed over a 30-day period."}
         </p>
       </div>

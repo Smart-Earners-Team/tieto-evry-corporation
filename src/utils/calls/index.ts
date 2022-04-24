@@ -1,8 +1,9 @@
 import { Contract } from "@ethersproject/contracts";
-import { ethers } from "ethers";
+import { ethers, Signer } from "ethers";
 import BigNumber from "bignumber.js";
 import {
   getLamboContract,
+  getLamboUpgraderContract,
   getTtebDistributorContract,
 } from "../contractHelpers";
 import getGasPrice from "../getGasPrice";
@@ -18,6 +19,14 @@ export const claimDividend = async (signer: CallSignerType) => {
   const contract = getLamboContract(signer);
   const gasPrice = getGasPrice();
   const tx = await contract.claimDividend({ gasPrice });
+  const receipt = await tx.wait();
+  return receipt.status;
+};
+
+export const upgradeLambo = async (signer: CallSignerType) => {
+  const contract = getLamboUpgraderContract(signer);
+  const gasPrice = getGasPrice();
+  const tx = await contract.upgrade({ gasPrice });
   const receipt = await tx.wait();
   return receipt.status;
 };

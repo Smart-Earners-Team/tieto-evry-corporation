@@ -14,6 +14,10 @@ export const BASE_BSC_SCAN_URLS = {
 export const BASE_BSC_SCAN_URL = BASE_BSC_SCAN_URLS[ChainId.MAINNET];
 
 export const tokens = {
+  lamboV1: {
+    97: "",
+    56: "0x1A82C2A3fD8BE1793ed8648F2df6B2B415EA81f8",
+  },
   lambo: {
     97: "",
     56: "0xd83a832AD7202612FA53E0317DF685A5Df7cA8b8",
@@ -50,6 +54,10 @@ export const addresses = {
     97: "0x3807C468D722aAf9e9A82d8b4b1674E66a12E607",
     56: "",
   },
+  lamboUpgrader: {
+    56: "0x15649682bb0b1d2ff580a3b221ab55a371dc07c2",
+    97: "",
+  },
 };
 
 export const lpTokenPairs: LpTokenPair[] = [
@@ -74,13 +82,23 @@ export const lpTokenPairs: LpTokenPair[] = [
     quoteToken: tokens.bnb,
   },
   {
-    id: 2,
+    id: 3,
     lpSymbol: "LAMBO-BNB LP",
     lpAddresses: {
       97: "",
       56: "0x273e19b8d61eea19018A66D68c2522Cb3fbD51FB",
     },
     token: tokens.lambo,
+    quoteToken: tokens.bnb,
+  },
+  {
+    id: 4,
+    lpSymbol: "LAMBOV1-BNB LP",
+    lpAddresses: {
+      97: "",
+      56: "0xed06A99F57e86c200f496923db2ceABa5761F88C",
+    },
+    token: tokens.lamboV1,
     quoteToken: tokens.bnb,
   },
 ];

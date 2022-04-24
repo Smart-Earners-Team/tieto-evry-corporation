@@ -10,22 +10,27 @@ export const navigationItems = [
     href: "/contact-us",
   },
   {
-    id: 5,
+    id: 3,
     title: "Claim Rewards",
     href: "/rewards",
   },
   {
-    id: 7,
+    id: 4,
+    title: "Migrate Coins",
+    href: "/migrate-to-lambov2",
+  },
+  {
+    id: 5,
     title: "DeFi Games",
     href: "/defi-games",
   },
   {
-    id: 8,
+    id: 6,
     title: "DeFi Tools",
     href: "/defi-tools",
   },
   {
-    id: 6,
+    id: 7,
     title: "Faqs",
     href: "/frequently-asked-questions",
   },

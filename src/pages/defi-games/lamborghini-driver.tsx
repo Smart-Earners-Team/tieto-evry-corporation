@@ -49,7 +49,7 @@ const approveTokenContract = onMainet ? getLamboContract : getTCoinContract;
 
 export default function LamboGamePage({ path }: PageProps) {
   const [drivers, setDrivers] = useState(0);
-  const [income, setIncome] = useState(0);
+  const [income, setIncome] = useState("0.00");
   // Sell income to LAMBO call
   const [selling, setSelling] = useState(false);
   // Buy driver input
@@ -94,7 +94,7 @@ export default function LamboGamePage({ path }: PageProps) {
         setIncome(income);
       } else {
         setDrivers(0);
-        setIncome(0);
+        setIncome("0.00");
       }
     })();
   }, [library, active, account, buying, compounding, selling]);
@@ -312,7 +312,7 @@ export default function LamboGamePage({ path }: PageProps) {
                 <MetricChip
                   text="Income"
                   unit="LAMBO"
-                  value={income.toFixed()}
+                  value={income}
                   className="text-amber-500"
                 />
               </div>
@@ -358,7 +358,10 @@ export default function LamboGamePage({ path }: PageProps) {
       </RefreshContextProvider>
       <div className="clear-both mb-8" />
       <Section className="mb-10">
-        <p>Earn more awards by referring friends to the game.</p>
+        <p>
+          Earn 10% of the $LAMBO used to buy drivers from anyone who uses your
+          referral link.
+        </p>
         <CopyToClipboard
           title="Share Your Referral Link"
           content={

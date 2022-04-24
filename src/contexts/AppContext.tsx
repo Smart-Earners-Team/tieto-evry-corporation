@@ -52,7 +52,7 @@ const defaultValues: GlobalAppContext = {
 export const GlobalAppContextProvider =
   createContext<GlobalAppContext>(defaultValues);
 
-export default function AppContext({
+export default React.memo(function AppContext({
   children,
 }: {
   children: React.ReactNode;
@@ -141,4 +141,4 @@ export default function AppContext({
       {children}
     </GlobalAppContextProvider.Provider>
   );
-}
+});

@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
     "noUnusedLocals": true,                           /* Enable error reporting when a local variables aren't read. */
     "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read */
     // "exactOptionalPropertyTypes": true,               /* Interpret optional property types as written, rather than adding 'undefined'. */

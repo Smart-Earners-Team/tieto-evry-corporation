@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import type { CallSignerType } from "../../../types";
 import { BIG_TEN } from "../../bigNumber";
 import { getLamboDriverContract } from "../../contractHelpers";
+import { getFullDisplayBalance } from "../../../utils/formatBalance";
 
 /* Calls for Lambo driver game */
 export const getDriverCounts = async (signer: CallSignerType) => {
@@ -15,14 +16,19 @@ export const getDriverCounts = async (signer: CallSignerType) => {
 
 export const getIncome = async (address: string, signer: CallSignerType) => {
   const contract = getLamboDriverContract(signer);
-  const { _hex } = (await contract.getMyIncome(address)) as ethers.BigNumber;
-  const count = new BigNumber(_hex).toNumber();
-  return count;
+  const { _hex: income } = (await contract.getMyIncome(
+    address
+  )) as ethers.BigNumber;
+  const { _hex: moneyClaim } = await contract.calculateMoneyClaim(income);
+  const result = getFullDisplayBalance(new BigNumber(moneyClaim).times(0.97), 18, 4);
+  return result;
 };
 
 export const compoundIncome = async (ref: string, signer: CallSignerType) => {
   const contract = getLamboDriverContract(signer);
-  await contract.reInvestIncome(ref);
+  const tx = await contract.reInvestIncome(ref);
+  const receipt = await tx.wait();
+  return receipt.status;
 };
 
 export const sellLamborghini = async (signer: CallSignerType) => {

@@ -14,6 +14,14 @@ export const getTtebDistributorAddress = () => {
   return getAddress(tokens.ttebDistributor);
 };
 
+export const getLamboUpgraderAddress = () => {
+  return getAddress(addresses.lamboUpgrader);
+};
+
+export const getLamboV1Address = () => {
+  return getAddress(tokens.lamboV1);
+};
+
 export const getLamboAddress = () => {
   return getAddress(tokens.lambo);
 };

@@ -41,7 +41,7 @@ export default function PrimaryMenu() {
           <Logo />
         </Link>
         <FabIcon
-          label="Menu"
+          title="Menu"
           onClick={openMenu}
           arial-label="Menu"
           className="lg:hidden cursor-pointer"
@@ -58,12 +58,12 @@ export default function PrimaryMenu() {
       >
         <FabIcon
           onClick={closeMenu}
-          label="close"
+          title="close"
           className="block mx-auto mb-10 lg:hidden cursor-pointer"
         >
           <FaTimes className="h-5 w-5 text-red-600" />
         </FabIcon>
-        <ul className="flex flex-col lg:flex-row lg:justify-end lg:items-center">
+        <ul className="flex flex-col lg:flex-row lg:justify-end lg:items-center w-full">
           {navigationItems.map((nav) => (
             <li key={nav.id}>
               <Link
