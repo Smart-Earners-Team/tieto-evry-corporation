@@ -68,6 +68,7 @@ export default function PrimaryMenu() {
             <li key={nav.id}>
               <Link
                 to={nav.href}
+                activeClassName="text-blue-600"
                 className="block text-center p-1 mb-8 lg:mb-0 hover:underline transition-colors ease-linear text-2xl
                   lg:text-lg font-semibold lg:ml-3"
                 onClick={closeMenu}

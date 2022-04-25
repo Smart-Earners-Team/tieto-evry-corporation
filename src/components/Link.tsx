@@ -1,6 +1,7 @@
 import React from "react";
 import { Link as GatsbyLink } from "gatsby";
 import type { LocationState } from "../types";
+import cls from "classnames";
 
 export default function Link({
   children,
@@ -20,7 +21,7 @@ export default function Link({
     return (
       <GatsbyLink
         to={to}
-        activeClassName={activeClassName}
+        activeClassName={cls(activeClassName)}
         partiallyActive={partiallyActive}
         state={pageState}
         {...other}
