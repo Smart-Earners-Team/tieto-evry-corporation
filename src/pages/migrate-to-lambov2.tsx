@@ -36,18 +36,18 @@ export default function ContactPage() {
   return (
     <Layout>
       <SEO
-        title="Migrate Your Assets to The Newer Version of $LAMBO"
+        title="Migrate To Lamborghini 2.0"
         description="LAMBO, as you may be aware, has recently been upgraded to version
         2.0. Use this page to transfer your funds to the new version and
         reap the rewards of HODLing $LAMBO."
       />
       <Section>
         <header>
-          <Heading>Migrate Your Assets to The Newer Version of $LAMBO</Heading>
+          <Heading>Migrate To Lamborghini 2.0</Heading>
           <p className="my-5">
-            LAMBO, as you may be aware, has recently been upgraded to version
-            2.0. Use this page to transfer your funds to the new version and
-            reap the rewards of HODLing $LAMBO.
+            In order to serve you better, we are revamping the Lamborghini token
+            to better suit our games. Use this page to upgrade your previous
+            tokens to Lamborghini 2.0
           </p>
         </header>
         <PageContent />
@@ -75,8 +75,8 @@ const PageContent = () => {
   const { toastError, toastSuccess } = useToast();
   const { fast, slow } = useContext(RefreshContext);
   const { onApprove } = useApproveToken(
-    getLamboUpgraderContract(library?.getSigner()),
-    getLamboV1Address()
+    getLamboV1Contract(library?.getSigner()),
+    getLamboUpgraderAddress()
   );
 
   useEffect(() => {
@@ -101,7 +101,7 @@ const PageContent = () => {
   // Check user allowance
   useEffect(() => {
     (async () => {
-      if (account != null && active && library != null) {
+      if (account && active && library) {
         const allowance = await checkTokenAllowance(
           getLamboUpgraderAddress(),
           account,
@@ -123,14 +123,19 @@ const PageContent = () => {
     if (account && library) {
       try {
         setLoading(true);
-        await onApprove();
-        setAllowance(true);
+        const contract = getLamboV1Contract(library.getSigner());
+        const tx = await contract.approveMax(getLamboUpgraderAddress());
+        const receipt = tx.wait();
+        if (receipt.status) {
+          setAllowance(true);
+        } else {
+          setAllowance(false);
+        }
       } catch (e) {
         toastError(
           "Error",
           "Please try again. Confirm the transaction and make sure you are paying enough gas!"
         );
-        setAllowance(false);
       } finally {
         setLoading(false);
       }
@@ -229,10 +234,10 @@ const PageContent = () => {
         mb-5 gap-2 bg-gray-50/50 py-5"
       >
         <TokenBalanceCard
-          symbol="LAMBO"
+          symbol="LAMBO v1"
           tokenBalance={lamboBalance}
           tokenPrice={lamboValue}
-          label="Your LAMBO balance"
+          label="Your LAMBO v1 Balance"
           image={
             <StaticImage
               src="../images/lambo-logo.png"
