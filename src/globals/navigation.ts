@@ -16,7 +16,7 @@ export const navigationItems = [
   },
   {
     id: 4,
-    title: "Migrate Coins",
+    title: "Migrate to 2.0",
     href: "/migrate-to-lambov2",
   },
   {

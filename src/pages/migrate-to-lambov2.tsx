@@ -9,20 +9,16 @@ import { useAppContext } from "../hooks/useAppContext";
 import { StaticImage } from "gatsby-plugin-image";
 import {
   checkTokenAllowance,
-  fetchTokenPrices,
   getTokenBalance,
   upgradeLambo,
 } from "../utils/calls";
 import useActiveWeb3React from "../hooks/useActiveWeb3React";
 import useToast from "../hooks/useToast";
-import { lpTokenPairs, tokens } from "../config";
-import { BIG_ONE, BIG_ZERO } from "../utils/bigNumber";
 import BigNumber from "bignumber.js";
 import { RefreshContext } from "../contexts/RefreshContext";
 import Section from "../components/Layouts/Section";
 import { isMainNet } from "../utils";
 import {
-  getLamboUpgraderContract,
   getLamboV1Contract,
   getTCoinContract,
 } from "../utils/contractHelpers";
@@ -61,12 +57,6 @@ const PageContent = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [balLoaded, setBalLoaded] = useState<boolean>(false);
   const [lamboBalance, setLamboBalance] = useState("0");
-  const [tokenPrices, setTokenPrices] = useState<
-    Pick<{ [P in keyof typeof tokens]: string }, "bnb" | "lambo">
-  >({
-    bnb: "0.000",
-    lambo: "0.000",
-  });
 
   const {
     ttebWallet: { active, error },
@@ -158,47 +148,6 @@ const PageContent = () => {
     }
   }, [library, active, account]);
 
-  useEffect(() => {
-    (() => {
-      async () => {
-        let bnbPriceBusd = BIG_ZERO,
-          lamboPriceBusd = BIG_ZERO;
-
-        const bnbBusd = lpTokenPairs.find(
-          (pair) => pair.lpSymbol === "BNB-BUSD LP"
-        );
-
-        const lamboBnb = lpTokenPairs.find(
-          (pair) => pair.lpSymbol === "LAMBOV1-BNB LP"
-        );
-
-        // BNB/BUSD pool
-        if (bnbBusd) {
-          const { tokenPriceVsQuote } = await fetchTokenPrices(bnbBusd);
-          bnbPriceBusd = BIG_ONE.times(tokenPriceVsQuote);
-        }
-
-        // LAMBO/BNB
-        if (lamboBnb) {
-          const { tokenPriceVsQuote } = await fetchTokenPrices(lamboBnb);
-          if (tokenPriceVsQuote === "NaN") {
-            lamboPriceBusd = bnbPriceBusd.times(0);
-          } else {
-            lamboPriceBusd = bnbPriceBusd.times(tokenPriceVsQuote);
-          }
-        }
-
-        setTokenPrices({
-          bnb: bnbPriceBusd.toJSON(),
-          lambo: lamboPriceBusd.toJSON(),
-        });
-      };
-    })();
-  }, [fast, slow]);
-
-  const lamboValue = new BigNumber(tokenPrices.lambo)
-    .times(lamboBalance)
-    .toFixed(3);
   const noAssets = new BigNumber(lamboBalance).isLessThanOrEqualTo(0);
 
   const renderApprovalOrGameButtons = () => {
@@ -211,7 +160,7 @@ const PageContent = () => {
           onClick={moveFundsAround}
           className="block mx-auto"
         >
-          {loading ? "Please wait..." : "Migrate Your Funds"}
+          {loading ? "Please wait..." : "Upgrade to 2.0"}
         </SolidButton>
       )
     ) : active ? (
@@ -236,7 +185,6 @@ const PageContent = () => {
         <TokenBalanceCard
           symbol="LAMBO v1"
           tokenBalance={lamboBalance}
-          tokenPrice={lamboValue}
           label="Your LAMBO v1 Balance"
           image={
             <StaticImage
