@@ -18,10 +18,7 @@ import BigNumber from "bignumber.js";
 import { RefreshContext } from "../contexts/RefreshContext";
 import Section from "../components/Layouts/Section";
 import { isMainNet } from "../utils";
-import {
-  getLamboV1Contract,
-  getTCoinContract,
-} from "../utils/contractHelpers";
+import { getLamboV1Contract, getTCoinContract } from "../utils/contractHelpers";
 import useApproveToken from "../hooks/useApproveToken";
 import {
   getLamboUpgraderAddress,
@@ -114,13 +111,8 @@ const PageContent = () => {
       try {
         setLoading(true);
         const contract = getLamboV1Contract(library.getSigner());
-        const tx = await contract.approveMax(getLamboUpgraderAddress());
-        const receipt = tx.wait();
-        if (receipt.status) {
-          setAllowance(true);
-        } else {
-          setAllowance(false);
-        }
+        await contract.approveMax(getLamboUpgraderAddress());
+        setAllowance(true);
       } catch (e) {
         toastError(
           "Error",
