@@ -1,5 +1,5 @@
 import { Contract } from "@ethersproject/contracts";
-import { ethers, Signer } from "ethers";
+import { ethers } from "ethers";
 import BigNumber from "bignumber.js";
 import {
   getLamboContract,

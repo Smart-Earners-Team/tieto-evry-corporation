@@ -130,10 +130,11 @@ const PageContent = () => {
       try {
         await upgradeLambo(library.getSigner());
         toastSuccess("Success");
-      } catch (error) {
+      } catch (error: any) {
+
         toastError(
           "Failed",
-          "Please try again. Confirm the transaction and make sure you are paying enough gas!"
+          "Please try again. Confirm the transaction and make sure you are paying enough gas!" + error.message
         );
       }
       setLoading(false);
