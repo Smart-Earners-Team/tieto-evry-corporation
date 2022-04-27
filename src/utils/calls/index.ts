@@ -26,7 +26,7 @@ export const claimDividend = async (signer: CallSignerType) => {
 export const upgradeLambo = async (signer: CallSignerType) => {
   const contract = getLamboUpgraderContract(signer);
   const gasPrice = getGasPrice();
-  const tx = await contract.upgrade({ gasPrice, gasLimit: "250000" });
+  const tx = await contract.upgrade({ gasPrice, gasLimit: "900000" });
   const receipt = await tx.wait();
   return receipt.status;
 };
