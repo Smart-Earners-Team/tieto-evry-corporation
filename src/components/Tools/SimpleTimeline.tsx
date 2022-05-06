@@ -6,7 +6,7 @@ type TimelineContent = { text: string; checked?: boolean };
 const roadMap = [
   {
     id: 1,
-    label: "Q4 - 2021",
+    label: "Phase1 - 2021",
     content: [
       { text: "Website launched", checked: true },
       {
@@ -21,7 +21,7 @@ const roadMap = [
   },
   {
     id: 2,
-    label: "Q1 - 2022",
+    label: "Phase2 - 2022",
     content: [
       { text: "Smart Contract Audits", checked: true },
       { text: "Release first GameFi application", checked: true  },
@@ -31,7 +31,7 @@ const roadMap = [
   },
   {
     id: 3,
-    label: "Q2 - 2022",
+    label: "Phase3 - 2022",
     content: [
       { text: "Website scam tracking utility updates" },
       { text: "Development team growth" },
@@ -40,7 +40,7 @@ const roadMap = [
   },
   {
     id: 4,
-    label: "Q3/Q4 - 2022",
+    label: "Phase4 - 2022",
     content: [
       {
         text: "The TietoEVRY Corporation Team will continue to focus on research development in scam tracking utilities.",
