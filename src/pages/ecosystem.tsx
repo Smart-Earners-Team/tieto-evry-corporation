@@ -82,11 +82,11 @@ export default function EcosystemPage() {
         </div>
         <div className="w-full">
           <a
-            href="https://pancakeswap.finance/swap?outputCurrency=0xc776400c2e53ad1731aacaf7c3f76e61236fa0e1"
+            href="https://krytolite.rocks/swap?outputCurrency=0xc776400c2e53ad1731aacaf7c3f76e61236fa0e1"
             className="inline-block my-3 md:my-6"
             rel="noopener noreferrer"
           >
-            <SolidButton label="Buy on Pankcake Swap" />
+            <SolidButton label="Buy on Kryptolite Swap" />
           </a>
           <CopyToClipboard
             title="Contract Address"
@@ -140,11 +140,11 @@ export default function EcosystemPage() {
         </ul>
         <div className="w-full">
           <Link
-            to="https://pancakeswap.finance/swap?outputCurrency=0xd83a832AD7202612FA53E0317DF685A5Df7cA8b8"
+            to="https://kryptolite.rocks/swap?outputCurrency=0xd83a832AD7202612FA53E0317DF685A5Df7cA8b8"
             className="inline-block my-3 md:my-6"
             rel="noopener noreferrer"
           >
-            <SolidButton label="Buy on Pankcake Swap" />
+            <SolidButton label="Buy on Kryptolite Swap" />
           </Link>
           <Link to="/defi-games" className="inline-block my-3 md:my-6">
             <SolidButton label="PLAY NOW" />

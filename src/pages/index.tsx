@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 import LandingPageHeader from "../components/Layouts/Headers/LandingPageHeader";
 import Link from "../components/Link";
+import OurPartnersSection from "../components/SharedSection/OurPartnersSection";
 
 const featureSummary = [
   {
@@ -140,6 +141,7 @@ const IndexPage = () => {
             ))}
           </div>
         </Section>
+        <OurPartnersSection />
         <Section noPadding={false}>
           <div className="mx-auto rounded-3xl px-4 sm:px-10 py-16 bg-blue-600">
             <p className="text-white text-center md:text-2xl">
@@ -152,14 +154,14 @@ const IndexPage = () => {
               space-y-5 sm:space-y-0"
             >
               <Link
-                to="https://pancakeswap.finance/swap?outputCurrency=0xc776400c2e53ad1731aacaf7c3f76e61236fa0e1"
+                to="https://kryptolite.rocks/swap?outputCurrency=0xc776400c2e53ad1731aacaf7c3f76e61236fa0e1"
                 rel="nofollow noopener"
                 target="_blank"
               >
                 <SolidButton>Buy $TTEB</SolidButton>
               </Link>
               <Link
-                to="https://pancakeswap.finance/swap?outputCurrency=0xd83a832AD7202612FA53E0317DF685A5Df7cA8b8"
+                to="https://kryptolite.rocks/swap?outputCurrency=0xd83a832AD7202612FA53E0317DF685A5Df7cA8b8"
                 rel="nofollow noopener"
                 target="_blank"
               >

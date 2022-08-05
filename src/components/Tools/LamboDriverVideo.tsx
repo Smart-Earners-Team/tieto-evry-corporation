@@ -202,7 +202,7 @@ function LamboDriverVideo({
         <Link
           className="transition-all duration-300 bg-yellow-500 rounded-full ring-yellow-700 ring-2 px-2 py-1
           text-yellow-700 font-bold text-sm mx-2"
-          to="https://pancakeswap.finance/swap?outputCurrency=0xd83a832AD7202612FA53E0317DF685A5Df7cA8b8"
+          to="https://kryptolite.rocks/swap?outputCurrency=0xd83a832AD7202612FA53E0317DF685A5Df7cA8b8"
           rel="nofollow noopener"
           target="_blank"
         >
